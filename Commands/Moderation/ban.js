@@ -18,25 +18,25 @@ const getCaseNumber = () => {
 module.exports = {
     // Definir el comando 'ban' con su descripción y opciones
     data: new SlashCommandBuilder()
-        .setName('ban') 
-        .setDescription('Banea a un usuario del servidor.') 
-        .addUserOption(option => 
-            option.setName('usuario') 
-                .setDescription('El usuario a banear.') 
-                .setRequired(true)) 
+        .setName('ban')
+        .setDescription('Banea a un usuario del servidor.')
+        .addUserOption(option =>
+            option.setName('usuario')
+                .setDescription('El usuario a banear.')
+                .setRequired(true))
         .addStringOption(option =>
             option.setName('motivo')
-                .setDescription('Razón para banear al usuario.') 
-                .setRequired(true)), 
-    
+                .setDescription('Razón para banear al usuario.')
+                .setRequired(true)),
+
     // Función asíncrona que se ejecuta cuando se utiliza el comando
     async execute(interaction) {
-        const user = interaction.options.getUser('usuario'); 
-        const reason = interaction.options.getString('motivo'); 
+        const user = interaction.options.getUser('usuario');
+        const reason = interaction.options.getString('motivo');
 
         // Verificar si el miembro que ejecuta el comando tiene permisos para banear
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
-            return interaction.reply({ content: 'No tienes permiso para banear miembros.', ephemeral: true });
+            return interaction.reply({ content: 'No tienes permiso para ejecutar este comando.', ephemeral: true });
         }
 
         const member = interaction.guild.members.cache.get(user.id); // Obtener el miembro del servidor
@@ -51,10 +51,10 @@ module.exports = {
                     .setTitle('Usuario Baneado')
                     .setColor(0xD93C40)
                     .addFields(
-                        { name: 'Usuario Baneado', value: `<@${user.id}>`, inline: true },
+                        { name: 'Usuario', value: `<@${user.id}>`, inline: true },
                         { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true },
                         { name: 'Razón', value: reason, inline: true },
-                        { name: 'Número de Caso', value: caseNumber.toString(), inline: true }
+                        { name: 'Caso', value: `#${caseNumber}`, inline: true }
                     )
                     .setTimestamp();
 
@@ -66,7 +66,7 @@ module.exports = {
                             .setColor(0xD93C40)
                             .addFields(
                                 { name: 'Razón', value: reason, inline: true },
-                                { name: 'Número de Caso', value: caseNumber.toString(), inline: true }
+                                { name: 'Caso', value: `#${caseNumber}`, inline: true }
                             )
                             .setTimestamp()
                     ]
