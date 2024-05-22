@@ -1,22 +1,22 @@
-# Mike-Bot
+# Mike-Bot 🤖
 
 Mike-Bot es un bot de Discord que proporciona varias funcionalidades útiles para gestionar tu servidor de Discord. Este bot incluye comandos para gestionar idiomas, moderación, y más.
 
-## Características
+## ✨ Características
 
-- Cambiar el idioma del bot.
-- Moderación básica (banear, kickear, etc.).
-- Responder a comandos personalizados.
-- Integraciones con varias API.
+- 🌐 Cambiar el idioma del bot.
+- 🛡️ Moderación básica (banear, kickear, etc.).
+- ⚙️ Responder a comandos personalizados.
+- 🔗 Integraciones con varias API.
 
-## Requisitos
+## 📋 Requisitos
 
-- Node.js v14 o superior.
-- npm (Node Package Manager).
-- Una cuenta de Discord y un servidor donde tengas permisos de administrador.
-- Un bot de Discord configurado en el [Portal de Desarrolladores de Discord](https://discord.com/developers/applications).
+- 📦 Node.js v14 o superior.
+- 📦 npm (Node Package Manager).
+- 👤 Una cuenta de Discord y un servidor donde tengas permisos de administrador.
+- 🛠️ Un bot de Discord configurado en el [Portal de Desarrolladores de Discord](https://discord.com/developers/applications).
 
-## Instalación
+## 🚀 Instalación
 
 1. Clona este repositorio:
    ```bash
@@ -48,9 +48,12 @@ Mike-Bot es un bot de Discord que proporciona varias funcionalidades útiles par
    node index.js
    ```
 
-## Invitación 
+## 🔗 Invitación 
 
 - Puedes invitar a **Mike Bot** a tu servidor a través de este [Enlace](https://discord.com/oauth2/authorize?client_id=1241620050683891752&scope=applications.commands)
 
-## Contribuciones
+## 🤝 Contribuciones
 - Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cualquier cambio importante antes de enviar un pull request.
+
+
+### *¡Gracias por usar Mike-Bot! 🎉*
