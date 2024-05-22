@@ -17,8 +17,12 @@ const getCaseNumber = (type) => {
         data.muteCaseCount += 1; // Incrementar el número de casos de mute
         fs.writeFileSync(dataPath, JSON.stringify(data, null, 2)); // Escribir datos actualizados en el archivo
         return data.muteCaseCount; // Devolver el número de caso actualizado de mute
-    }
-    return null; // Si no es ni ban ni mute, devolver null
+    } else if (type === 'kick') {
+        data.kickCaseCount += 1; // Incrementar el número de casos de kick
+        fs.writeFileSync(dataPath, JSON.stringify(data, null, 2)); // Escribir datos actualizados en el archivo
+        return data.muteCaseCount; // Devolver el número de caso actualizado de kick
+    }    
+    return null; // Si no es ni ban ni mute ni kick, devolver null
 };
 
 // Función para cargar comandos desde los archivos
