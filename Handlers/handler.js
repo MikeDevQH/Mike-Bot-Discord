@@ -3,16 +3,22 @@ const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const config = require('../config.json'); // Configuración del bot
-const { TextChannel, MessageEmbed } = require('discord.js');
 const path = require('path');
 const dataPath = path.resolve(__dirname, '../data.json'); // Ruta al archivo de datos
 let data = require(dataPath); // Cargar datos desde el archivo JSON
 
 // Función para obtener el número de caso y actualizar los datos
-const getCaseNumber = () => {
-    data.banCaseCount += 1; // Incrementar el número de casos
-    fs.writeFileSync(dataPath, JSON.stringify(data, null, 2)); // Escribir datos actualizados en el archivo
-    return data.banCaseCount; // Devolver el número de caso actualizado
+const getCaseNumber = (type) => {
+    if (type === 'ban') {
+        data.banCaseCount += 1; // Incrementar el número de casos de ban
+        fs.writeFileSync(dataPath, JSON.stringify(data, null, 2)); // Escribir datos actualizados en el archivo
+        return data.banCaseCount; // Devolver el número de caso actualizado de ban
+    } else if (type === 'mute') {
+        data.muteCaseCount += 1; // Incrementar el número de casos de mute
+        fs.writeFileSync(dataPath, JSON.stringify(data, null, 2)); // Escribir datos actualizados en el archivo
+        return data.muteCaseCount; // Devolver el número de caso actualizado de mute
+    }
+    return null; // Si no es ni ban ni mute, devolver null
 };
 
 // Función para cargar comandos desde los archivos
