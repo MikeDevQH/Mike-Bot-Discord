@@ -5,16 +5,16 @@ const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 module.exports = {
     // Definir los datos del comando de slash
     data: new SlashCommandBuilder()
-        .setName('unban') // Nombre del comando
-        .setDescription('Desbanear a un usuario del servidor.') // Descripción del comando
+        .setName('unban')
+        .setDescription('Desbanear a un usuario del servidor.') 
         .addStringOption(option => 
-            option.setName('userid') // Nombre de la opción para el ID del usuario
-                .setDescription('El ID del usuario a desbanear.') // Descripción de la opción
-                .setRequired(true)) // La opción es requerida
+            option.setName('userid') 
+                .setDescription('El ID del usuario a desbanear.') 
+                .setRequired(true)) 
         .addStringOption(option =>
-            option.setName('reason') // Nombre de la opción para la razón del desban
-                .setDescription('Razón para desbanear al usuario.') // Descripción de la opción
-                .setRequired(false)), // La opción no es requerida
+            option.setName('reason') 
+                .setDescription('Razón para desbanear al usuario.') 
+                .setRequired(false)), 
     // Función para ejecutar el comando
     async execute(interaction) {
         // Obtener el ID del usuario y la razón de la interacción
@@ -31,12 +31,12 @@ module.exports = {
             await interaction.guild.members.unban(userId, reason);
             // Crear un embed para notificar el desban
             const unbanEmbed = new EmbedBuilder()
-                .setColor(0x01DD7B) // Color del embed
-                .setTitle('Usuario Desbaneado') // Título del embed
+                .setColor(0x01DD7B) 
+                .setTitle('Usuario Desbaneado') 
                 .addFields(
-                    { name: 'ID del Usuario Desbaneado', value: userId, inline: true }, // Campo para el ID del usuario desbaneado
-                    { name: 'Desbaneado Por', value: interaction.user.tag, inline: true }, // Campo para quién desbaneó al usuario
-                    { name: 'Razón', value: reason, inline: true } // Campo para la razón del desban
+                    { name: 'ID', value: userId, inline: true }, 
+                    { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true }, 
+                    { name: 'Razón', value: reason, inline: true } 
                 )
                 .setTimestamp(); // Establecer la marca de tiempo del embed
 
