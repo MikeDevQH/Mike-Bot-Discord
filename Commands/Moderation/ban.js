@@ -18,21 +18,21 @@ const getCaseNumber = () => {
 module.exports = {
     // Definir el comando 'ban' con su descripción y opciones
     data: new SlashCommandBuilder()
-        .setName('ban') // Nombre del comando
-        .setDescription('Banea a un usuario del servidor.') // Descripción del comando
+        .setName('ban') 
+        .setDescription('Banea a un usuario del servidor.') 
         .addUserOption(option => 
-            option.setName('usuario') // Nombre de la opción de usuario
-                .setDescription('El usuario a banear.') // Descripción de la opción de usuario
-                .setRequired(true)) // La opción de usuario es obligatoria
+            option.setName('usuario') 
+                .setDescription('El usuario a banear.') 
+                .setRequired(true)) 
         .addStringOption(option =>
-            option.setName('motivo') // Nombre de la opción de motivo
-                .setDescription('Razón para banear al usuario.') // Descripción de la opción de motivo
-                .setRequired(true)), // La opción de motivo es obligatoria
+            option.setName('motivo')
+                .setDescription('Razón para banear al usuario.') 
+                .setRequired(true)), 
     
     // Función asíncrona que se ejecuta cuando se utiliza el comando
     async execute(interaction) {
-        const user = interaction.options.getUser('usuario'); // Obtener el usuario a banear
-        const reason = interaction.options.getString('motivo'); // Obtener la razón del baneo
+        const user = interaction.options.getUser('usuario'); 
+        const reason = interaction.options.getString('motivo'); 
 
         // Verificar si el miembro que ejecuta el comando tiene permisos para banear
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
@@ -51,8 +51,8 @@ module.exports = {
                     .setTitle('Usuario Baneado')
                     .setColor(0xD93C40)
                     .addFields(
-                        { name: 'Usuario Baneado', value: user.tag, inline: true },
-                        { name: 'Baneado Por', value: interaction.user.tag, inline: true },
+                        { name: 'Usuario Baneado', value: `<@${interaction.user.id}>`, inline: true },
+                        { name: 'Baneado Por', value: `<@${interaction.user.id}>`, inline: true },
                         { name: 'Razón', value: reason, inline: true },
                         { name: 'Número de Caso', value: caseNumber.toString(), inline: true }
                     )
