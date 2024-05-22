@@ -62,7 +62,7 @@ module.exports = {
                 await member.send({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle('Has sido baneado')
+                            .setTitle(`Has sido baneado del servidor ${interaction.guild.name}.`)
                             .setColor(0xD93C40)
                             .addFields(
                                 { name: 'Razón', value: reason, inline: true },
