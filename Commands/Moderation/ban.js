@@ -52,7 +52,7 @@ module.exports = {
                     .setColor(0xD93C40)
                     .addFields(
                         { name: 'Usuario Baneado', value: `<@${user.id}>`, inline: true },
-                        { name: 'Baneado Por', value: `<@${interaction.user.id}>`, inline: true },
+                        { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true },
                         { name: 'Razón', value: reason, inline: true },
                         { name: 'Número de Caso', value: caseNumber.toString(), inline: true }
                     )
