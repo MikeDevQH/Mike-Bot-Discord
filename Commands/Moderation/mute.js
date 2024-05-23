@@ -1,6 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, EmbedBuilder } = require('discord.js');
 const { getCaseNumber } = require('../../Handlers/handler');
+const fs = require('fs');
+const path = require('path');
+
+const dataPath = path.resolve(__dirname, '../../data.json');
+let data = require(dataPath);
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -46,27 +51,37 @@ module.exports = {
             await member.timeout(time, reason);
             const serverIconURL = interaction.guild.iconURL();
             const embed = new EmbedBuilder()
-                .setTitle('Usuario Sancionado')
-                .setDescription(`<@${member.id}> ha sido muteado.`)
+                .setTitle('Usuario Muteado')
                 .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
                 .addFields(
-                    { name: 'Razón', value: reason },
-                    { name: 'Tiempo', value: timeInput },
-                    { name: 'Caso', value: `#${caseNumber}` }
+                    { name: 'Usuario', value: `<@${member.id}>`, inline: true },
+                    { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true },
+                    { name: 'Razón', value: reason, inline: false },
+                    { name: 'Tiempo', value: timeInput, inline: true},
+                    { name: 'Caso', value: `#${caseNumber}`, inline: true }
                 )
                 .setColor(0xD93C40)
                 .setFooter({ text: `${interaction.guild.name} `, iconURL: serverIconURL })
                 .setTimestamp();
 
-            await interaction.reply({ embeds: [embed] });
+            await interaction.reply({ embeds: [embed], ephemeral: true });
+
+            // Enviar el embed al canal de registros si está configurado
+            const modLogChannelId = data.modLogChannelId;
+            if (modLogChannelId) {
+                const logChannel = interaction.guild.channels.cache.get(modLogChannelId);
+                if (logChannel) {
+                    await logChannel.send({ embeds: [embed] });
+                }
+            }
 
             const dmEmbed = new EmbedBuilder()
                 .setTitle('¡Has sido Sancionado!')
                 .setDescription(`Has sido muteado de ${interaction.guild.name}.`)
-                .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) // Añadir el avatar del usuario
+                .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
                 .addFields(
-                    { name: '🔇 Razón', value: reason },
-                    { name: '⏰ Tiempo', value: timeInput }
+                    { name: '🔇 Razón', value: reason, inline: false },
+                    { name: '⏰ Tiempo', value: timeInput, inline: true }
                 )
                 .setColor(0xD93C40)
                 .setFooter({ text: `${interaction.guild.name} `, iconURL: serverIconURL})

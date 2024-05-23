@@ -3,6 +3,9 @@ const { EmbedBuilder, PermissionsBitField } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 
+const dataPath = path.resolve(__dirname, '../../data.json');
+let data = require(dataPath);
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('unban')
@@ -35,14 +38,15 @@ module.exports = {
             const unbanEmbed = new EmbedBuilder()
                 .setColor(0x01DD7B)
                 .setTitle('Usuario Desbaneado')
-                .setThumbnail(user.displayAvatarURL({ dynamic: true })) // Usar avatar animado si está disponible
+                .setThumbnail(user.displayAvatarURL({ dynamic: true })) 
                 .addFields(
-                    { name: 'ID', value: userId, inline: true }
+                    { name: 'ID', value: userId, inline: false },
+                    { name: 'Staff', value: `<@${interaction.user.id}>`, inline: false },
                 )
                 .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                 .setTimestamp();
 
-            await interaction.reply({ embeds: [unbanEmbed] });
+            await interaction.reply({ embeds: [unbanEmbed], ephemeral: true });
 
             // Enviar un mensaje directo al usuario desbaneado con los detalles de la sanción
             const dmEmbed = new EmbedBuilder()
@@ -56,6 +60,15 @@ module.exports = {
             await user.send({ embeds: [dmEmbed] }).catch(err => {
                 console.log('No se pudo enviar el mensaje directo al usuario.');
             });
+
+            // Enviar el embed al canal de registros si está configurado
+            const modLogChannelId = data.modLogChannelId;
+            if (modLogChannelId) {
+                const logChannel = interaction.guild.channels.cache.get(modLogChannelId);
+                if (logChannel) {
+                    await logChannel.send({ embeds: [unbanEmbed] });
+                }
+            }
         } catch (error) {
             console.error('Error al desbanear usuario:', error);
             await interaction.reply({ content: `No se pudo desbanear al usuario con ID ${userId}. Por favor, asegúrate de que el ID sea correcto y el usuario esté baneado.`, ephemeral: true });
