@@ -38,7 +38,7 @@ module.exports = {
             option.setName('motivo')
                 .setDescription('Razón para advertir al usuario.')
                 .setMinLength(3)
-                .setMaxLength(50)
+                .setMaxLength(100)
                 .setRequired(true)),
 
     // Función asíncrona que se ejecuta cuando se utiliza el comando
