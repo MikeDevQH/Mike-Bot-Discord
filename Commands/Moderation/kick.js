@@ -26,6 +26,8 @@ module.exports = {
         .addStringOption(option =>
             option.setName('motivo')
                 .setDescription('Razón para expulsar al usuario.')
+                .setMinLength(3)
+                .setMaxLength(100)
                 .setRequired(true)),
 
     // Función asíncrona que se ejecuta cuando se utiliza el comando
@@ -40,39 +42,44 @@ module.exports = {
 
         const member = interaction.guild.members.cache.get(user.id); // Obtener el miembro del servidor
         if (member) {
-            await interaction.deferReply(); // Aplazar la respuesta para dar más tiempo
+            await interaction.deferReply(); 
 
             try {
-                const caseNumber = getCaseNumber(); // Obtener el número de caso de expulsión
+                const caseNumber = getCaseNumber(); 
+                const serverIconURL = interaction.guild.iconURL({ dynamic: true }); 
 
                 // Crear el embed para el mensaje de expulsión
                 const embed = new EmbedBuilder()
-                    .setTitle('Usuario Expulsado')
+                    .setTitle('Usuario Sancionado')
+                    .setDescription(`<@${member.id}> ha sido expulsado`)
                     .setColor(0xD93C40)
+                    .setThumbnail(user.displayAvatarURL({ dynamic: true })) // Añadir la foto de perfil del usuario
                     .addFields(
-                        { name: 'Usuario', value: `<@${user.id}>`, inline: true },
-                        { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true },
                         { name: 'Razón', value: reason, inline: true },
                         { name: 'Caso', value: `#${caseNumber}`, inline: true }
                     )
+                    .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                     .setTimestamp();
 
                 // Enviar un mensaje al usuario expulsado
                 await member.send({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`Has sido expulsado del servidor ${interaction.guild.name}.`)
+                            .setTitle('¡Has sido Sancionado!')
+                            .setDescription(`Has sido expulsado de ${interaction.guild.name}.`)
                             .setColor(0xD93C40)
+                            .setThumbnail(user.displayAvatarURL({ dynamic: true })) // Añadir la foto de perfil del usuario
                             .addFields(
-                                { name: 'Razón', value: reason, inline: true },
-                                { name: 'Caso', value: `#${caseNumber}`, inline: true }
+                                { name: '❌ Razón', value: reason, inline: true },
+                                { name: '📋 Caso', value: `#${caseNumber}`, inline: true }
                             )
+                            .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                             .setTimestamp()
                     ]
                 }).catch(console.error);
-
-                // Expulsar al usuario del servidor
-                await member.kick(reason).catch(console.error);
+                    
+                    // Expulsar al usuario del servidor
+                    await member.kick(reason).catch(console.error);
 
                 // Editar la respuesta de la interacción con el embed de expulsión
                 await interaction.editReply({ embeds: [embed] });
@@ -84,6 +91,5 @@ module.exports = {
             // Responder si el usuario no está en el servidor
             await interaction.reply({ content: 'Ese usuario no está en este servidor.', ephemeral: true });
         }
-
     },
 };

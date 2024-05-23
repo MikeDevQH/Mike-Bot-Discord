@@ -1,50 +1,63 @@
-// Importar los constructores necesarios para construir comandos de slash y crear objetos de Embed y Permisos
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const fs = require('fs');
+const path = require('path');
 
 module.exports = {
-    // Definir los datos del comando de slash
     data: new SlashCommandBuilder()
         .setName('unban')
-        .setDescription('Desbanear a un usuario del servidor.') 
+        .setDescription('Desbanear a un usuario del servidor.')
         .addStringOption(option => 
-            option.setName('userid') 
-                .setDescription('El ID del usuario a desbanear.') 
-                .setRequired(true)) 
-        .addStringOption(option =>
-            option.setName('reason') 
-                .setDescription('Razón para desbanear al usuario.') 
-                .setRequired(false)), 
-    // Función para ejecutar el comando
+            option.setName('userid')
+                .setDescription('El ID del usuario a desbanear.')
+                .setRequired(true)),
     async execute(interaction) {
-        // Obtener el ID del usuario y la razón de la interacción
         const userId = interaction.options.getString('userid');
-        const reason = interaction.options.getString('reason') || 'No se proporcionó una razón';
 
-        // Verificar si el miembro tiene permisos para desbanear usuarios
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
-            return interaction.reply({ content: 'No tienes permiso para desbanear miembros.', ephemeral: true });
+            return interaction.reply({ content: 'No tienes permiso para ejecutar este comando.', ephemeral: true });
         }
 
         try {
-            // Desbanear al usuario
-            await interaction.guild.members.unban(userId, reason);
-            // Crear un embed para notificar el desban
-            const unbanEmbed = new EmbedBuilder()
-                .setColor(0x01DD7B) 
-                .setTitle('Usuario Desbaneado') 
-                .addFields(
-                    { name: 'ID', value: userId, inline: true }, 
-                    { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true }, 
-                    { name: 'Razón', value: reason, inline: true } 
-                )
-                .setTimestamp(); // Establecer la marca de tiempo del embed
+            // Verificar si el usuario está baneado
+            const banList = await interaction.guild.bans.fetch();
+            const userBan = banList.find(ban => ban.user.id === userId);
 
-            // Responder con el embed de desban
+            if (!userBan) {
+                return interaction.reply({ content: `El usuario con ID ${userId} no está baneado.`, ephemeral: true });
+            }
+
+            const user = await interaction.client.users.fetch(userId);
+            const serverIconURL = interaction.guild.iconURL();
+
+            await interaction.guild.members.unban(userId);
+
+            const unbanEmbed = new EmbedBuilder()
+                .setColor(0x01DD7B)
+                .setTitle('Usuario Desbaneado')
+                .setThumbnail(user.displayAvatarURL({ dynamic: true })) // Usar avatar animado si está disponible
+                .addFields(
+                    { name: 'ID', value: userId, inline: true }
+                )
+                .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
+                .setTimestamp();
+
             await interaction.reply({ embeds: [unbanEmbed] });
+
+            // Enviar un mensaje directo al usuario desbaneado con los detalles de la sanción
+            const dmEmbed = new EmbedBuilder()
+                .setTitle('Sanción Removida')
+                .setDescription(`Has sido desbaneado de ${interaction.guild.name}.`)
+                .setColor(0x01DD7B)
+                .setThumbnail(user.displayAvatarURL({ dynamic: true })) // Usar avatar animado si está disponible
+                .setFooter({ text: interaction.guild.name, iconURL: serverIconURL })
+                .setTimestamp();
+
+            await user.send({ embeds: [dmEmbed] }).catch(err => {
+                console.log('No se pudo enviar el mensaje directo al usuario.');
+            });
         } catch (error) {
             console.error('Error al desbanear usuario:', error);
-            // Manejar errores al desbanear y responder con un mensaje de error
             await interaction.reply({ content: `No se pudo desbanear al usuario con ID ${userId}. Por favor, asegúrate de que el ID sea correcto y el usuario esté baneado.`, ephemeral: true });
         }
     },

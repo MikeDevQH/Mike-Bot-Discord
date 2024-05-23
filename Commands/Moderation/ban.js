@@ -1,4 +1,3 @@
-// Importar las clases necesarias de @discordjs/builders y discord.js
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, EmbedBuilder } = require('discord.js');
 const fs = require('fs');
@@ -27,6 +26,8 @@ module.exports = {
         .addStringOption(option =>
             option.setName('motivo')
                 .setDescription('Razón para banear al usuario.')
+                .setMinLength(3)
+                .setMaxLength(100)
                 .setRequired(true)),
 
     // Función asíncrona que se ejecuta cuando se utiliza el comando
@@ -39,41 +40,61 @@ module.exports = {
             return interaction.reply({ content: 'No tienes permiso para ejecutar este comando.', ephemeral: true });
         }
 
+        // Verificar si el usuario ya está baneado
+        try {
+            const banInfo = await interaction.guild.bans.fetch(user.id);
+            if (banInfo) {
+                return interaction.reply({ content: 'Ese usuario ya está baneado.', ephemeral: true });
+            }
+        } catch (error) {
+            // Ignorar el error si el usuario no está baneado (código de error 10026)
+            if (error.code !== 10026) {
+                console.error('Error al verificar el estado de baneo del usuario:', error);
+                return interaction.reply({ content: 'Hubo un error al verificar el estado de baneo del usuario.', ephemeral: true });
+            }
+        }
+
         const member = interaction.guild.members.cache.get(user.id); // Obtener el miembro del servidor
         if (member) {
-            await interaction.deferReply();  // Aplazar la respuesta para dar más tiempo
+            await interaction.deferReply(); // Aplazar la respuesta para dar más tiempo
 
             try {
                 const caseNumber = getCaseNumber(); // Obtener el número de caso de baneo
+                const serverIconURL = interaction.guild.iconURL({ dynamic: true }); // Obtener la URL del icono del servidor
 
                 // Crear el embed para el mensaje de baneo
                 const embed = new EmbedBuilder()
-                    .setTitle('Usuario Baneado')
+                    .setTitle('Usuario Sancionado')
+                    .setDescription(`<@${member.id}> ha sido baneado`)
                     .setColor(0xD93C40)
+                    .setThumbnail(user.displayAvatarURL({ dynamic: true })) // Añadir la foto de perfil del usuario
                     .addFields(
-                        { name: 'Usuario', value: `<@${user.id}>`, inline: true },
-                        { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true },
                         { name: 'Razón', value: reason, inline: true },
                         { name: 'Caso', value: `#${caseNumber}`, inline: true }
                     )
+                    .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                     .setTimestamp();
 
                 // Enviar un mensaje al usuario baneado
                 await member.send({
                     embeds: [
                         new EmbedBuilder()
-                            .setTitle(`Has sido baneado del servidor ${interaction.guild.name}.`)
+                            .setTitle('¡Has sido Sancionado!')
+                            .setDescription(`Has sido baneado de ${interaction.guild.name}.`)
                             .setColor(0xD93C40)
+                            .setThumbnail(user.displayAvatarURL({ dynamic: true })) 
                             .addFields(
-                                { name: 'Razón', value: reason, inline: true },
-                                { name: 'Caso', value: `#${caseNumber}`, inline: true }
+                                { name: '🚫 Razón', value: reason, inline: true },
+                                { name: '📝 Caso', value: `#${caseNumber}`, inline: true }
                             )
+                            .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                             .setTimestamp()
                     ]
                 }).catch(console.error);
 
                 // Banear al usuario del servidor
                 await member.ban({ reason }).catch(console.error);
+
                 // Editar la respuesta de la interacción con el embed de baneo
                 await interaction.editReply({ embeds: [embed] });
             } catch (error) {

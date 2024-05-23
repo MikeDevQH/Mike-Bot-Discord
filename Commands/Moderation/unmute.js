@@ -4,10 +4,10 @@ const { PermissionsBitField, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('unmute')
-        .setDescription('Quitar el aislamiento a un usuario')
+        .setDescription('Desmutear a un usuario')
         .addUserOption(option =>
             option.setName('usuario')
-                .setDescription('El usuario a desaislar')
+                .setDescription('El usuario a desmutear')
                 .setRequired(true)),
     async execute(interaction) {
         const member = interaction.options.getMember('usuario');
@@ -22,21 +22,24 @@ module.exports = {
         }
 
         try {
-            await member.timeout(null); // Quitar el aislamiento
+            await member.timeout(null); 
+            const serverIconURL = interaction.guild.iconURL()
             const embed = new EmbedBuilder()
-                .setTitle('Usuario Desmuteado')
+                .setTitle('Sanción Removida')
                 .setDescription(`<@${member.id}> ha sido desmuteado.`)
-                .addFields(
-                    { name: 'Staff', value: `<@${interaction.user.id}>` }
-                )
-                .setColor(0x01DD7B);
+                .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
+                .setColor(0x01DD7B)
+                .setFooter({ text: `${interaction.guild.name} `, iconURL: serverIconURL })
+                .setTimestamp();
 
             await interaction.reply({ embeds: [embed] });
-
             const dmEmbed = new EmbedBuilder()
-                .setTitle('Has sido desmuteado')
-                .setDescription(`Has sido desmuteado del servidor ${interaction.guild.name}.`)
-                .setColor(0x01DD7B);
+                .setTitle('Sanción Removida')
+                .setDescription(`Has sido desmuteado de ${interaction.guild.name}.`)
+                .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
+                .setColor(0x01DD7B)
+                .setFooter({ text: `${interaction.guild.name} `, iconURL: serverIconURL })
+                .setTimestamp();
 
             await member.send({ embeds: [dmEmbed] }).catch(err => {
                 console.log('No se pudo enviar el mensaje directo al usuario.');
