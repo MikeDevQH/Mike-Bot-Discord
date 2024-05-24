@@ -1,17 +1,18 @@
 {
-  "name": "discord",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "MichaelQhdez",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "discord.js": "^14.15.2",
-    "dotenv": "^16.4.5",
-    "ms": "^2.1.3"
+    "name": "discord",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "MichaelQhdez",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+      "discord.js": "^14.15.2",
+      "dotenv": "^16.4.5",
+      "ms": "^2.1.3"
+    }
   }
-}
+  

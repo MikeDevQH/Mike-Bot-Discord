@@ -1,0 +1,33 @@
+/discord-bot
+├── commands/
+│   ├── prefix/
+│   │   ├── ... (archivos de comandos basados en prefijos)
+│   ├── slash/
+│   │   ├── avatar.js
+|   |   |── ban.js
+│   │   ├── kick.js
+|   |   |── mute.js   
+│   │   ├── setmodlogchannel.js
+|   |   |── unban.js
+│   │   ├── unmute.js
+|   |   |── warn.js
+├── config/
+│   ├── config.json
+│   ├── commands.json
+│   ├── reactions.json
+├── data/
+│   ├── data.json
+├── events/
+│   ├── interactionCreate.js
+│   ├── ready.js
+├── handlers/
+│   ├── commandHandler.js
+│   ├── caseNumberHandler.js
+├── utils/
+│   ├── logger.js
+│   ├── database.js
+├── .env
+├── .gitignore
+├── index.js
+├── package.json
+└── README.md

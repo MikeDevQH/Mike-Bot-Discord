@@ -1,7 +1,8 @@
 const { Client } = require('discord.js');
 require('dotenv').config();
-const config = require('./config.json');
-const { loadCommands, readyHandler, interactionCreateHandler } = require('./Handlers/handler');
+const { loadCommands } = require('./handlers/commandHandler');
+const readyHandler = require('./events/ready');
+const interactionCreateHandler = require('./events/interactionCreate');
 
 const client = new Client({
     intents: 3272703
@@ -9,7 +10,6 @@ const client = new Client({
 
 readyHandler(client);
 interactionCreateHandler(client);
-// Mueve la carga de comandos aquí
 loadCommands(client);
 
 client.login(process.env.DISCORD_TOKEN);

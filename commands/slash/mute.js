@@ -1,10 +1,10 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, EmbedBuilder } = require('discord.js');
-const { getCaseNumber } = require('../../Handlers/handler');
+const { getCaseNumber } = require('../../handlers/caseNumberHandler');
 const fs = require('fs');
 const path = require('path');
 
-const dataPath = path.resolve(__dirname, '../../data.json');
+const dataPath = path.resolve(__dirname, '../../data/data.json');
 let data = require(dataPath);
 
 module.exports = {
