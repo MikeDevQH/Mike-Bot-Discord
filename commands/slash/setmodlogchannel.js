@@ -24,6 +24,6 @@ module.exports = {
         data.modLogChannelId = channel.id;
         fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
 
-        await interaction.reply({ content: `Canal de registros de moderación configurado a ${channel}`, ephemeral: true });
+        await interaction.reply({ content: `Canal de registros de sanciones configurado en ${channel}`, ephemeral: true });
     },
 };
