@@ -19,7 +19,7 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('motivo')
-                .setDescription('Razón para expulsar al usuario.')
+                .setDescription('Motivo para expulsar al usuario.')
                 .setMinLength(3)
                 .setMaxLength(100)
                 .setRequired(true)),
@@ -39,7 +39,7 @@ module.exports = {
             await interaction.deferReply({ ephemeral: true });
 
             try {
-                const caseNumber = getCaseNumber(); 
+                const caseNumber = getCaseNumber('kick'); 
                 const serverIconURL = interaction.guild.iconURL({ dynamic: true }); 
 
                 // Crear el embed para el mensaje de expulsión
@@ -50,7 +50,7 @@ module.exports = {
                     .addFields(
                         { name: '👤 Usuario', value: `<@${member.id}>`, inline: true },
                         { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
-                        { name: '❌ Razón', value: reason, inline: false },
+                        { name: '❌ Motivo', value: reason, inline: false },
                         { name: '📋 Caso', value: `#${caseNumber}`, inline: true }
                     )
                     .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
@@ -65,7 +65,7 @@ module.exports = {
                             .setColor(0xD93C40)
                             .setThumbnail(user.displayAvatarURL({ dynamic: true })) // Añadir la foto de perfil del usuario
                             .addFields(
-                                { name: '❌ Razón', value: reason, inline: true },
+                                { name: '❌ Motivo', value: reason, inline: true },
                                 { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
                                 { name: '📋 Caso', value: `#${caseNumber}`, inline: true }
                             )

@@ -24,15 +24,18 @@ module.exports = (client) => {
         const embed = new EmbedBuilder()
             .setFooter({ text: `${message.guild.name}`, iconURL: message.guild.iconURL() })
             .setTimestamp()
-            .setColor(action === 'deleted' ? 0xFF0000 : 0xFFFF00)
+            .setColor(action === 'deleted' ? 0x06b6dc : 0x06b6dc)
             .setThumbnail(message.author.displayAvatarURL());
 
         if (action === 'deleted') {
             embed.setTitle('Mensaje eliminado')
-                .setDescription(`**Autor:** ${message.author.tag}\n**Canal:** ${message.channel}\n**Mensaje:** ${message.content}`);
+                .setDescription(`**Autor:** ${message.author.tag}\n**Canal:** ${message.channel}\n**Mensaje:**\n\`\`\`${message.content}\`\`\``);
         } else if (action === 'updated') {
             embed.setTitle('Mensaje editado')
-                .setDescription(`**Autor:** ${message.author.tag}\n**Canal:** ${message.channel}\n**Mensaje original:** ${message.content}\n**Mensaje nuevo:** ${newMessage.content}`)
+                .setFields({
+                    name: 'Mensaje editado',
+                    value: `**Autor:** ${message.author.tag}\n**Canal:** ${message.channel}\n**Mensaje original:**\n\`\`\`${message.content}\`\`\`\n**Mensaje nuevo:**\n\`\`\`${newMessage.content}\`\`\``,
+                })
                 .setURL(newMessage.url);
         }
 

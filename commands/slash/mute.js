@@ -56,7 +56,7 @@ module.exports = {
                 .addFields(
                     { name: '👤 Usuario', value: `<@${member.id}>`, inline: true },
                     { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
-                    { name: '🔇 Razón', value: reason, inline: false },
+                    { name: '🔇 Motivo', value: reason, inline: false },
                     { name: '⏰ Tiempo', value: timeInput, inline: true},
                     { name: '📋 Caso', value: `#${caseNumber}`, inline: true }
                 )
@@ -80,7 +80,7 @@ module.exports = {
                 .setDescription(`Has sido muteado de ${interaction.guild.name}.`)
                 .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
                 .addFields(
-                    { name: '🔇 Razón', value: reason, inline: false },
+                    { name: '🔇 Motivo', value: reason, inline: false },
                     { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
                     { name: '⏰ Tiempo', value: timeInput, inline: true },
                     { name: '📋 Caso', value: `#${caseNumber}`, inline: false }

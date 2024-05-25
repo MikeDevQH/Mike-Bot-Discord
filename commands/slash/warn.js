@@ -31,7 +31,7 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('motivo')
-                .setDescription('Razón para advertir al usuario.')
+                .setDescription('Motivo para advertir al usuario.')
                 .setMinLength(3)
                 .setMaxLength(100)
                 .setRequired(true)),
@@ -60,7 +60,7 @@ module.exports = {
                 .addFields(
                     { name: '👤 Usuario', value: `<@${user.id}>`, inline: true },
                     { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
-                    { name: '🚨 Razón', value: reason, inline: false },
+                    { name: '🚨 Motivo', value: reason, inline: false },
                     { name: '📝 Caso', value: `#${caseNumber}`, inline: true },
                     { name: '⚠️ Advertencias', value: warningCount.toString(), inline: true }
                 )
@@ -75,7 +75,7 @@ module.exports = {
                             .setColor(0xFFA500)
                             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
                             .addFields(
-                                { name: '🚨 Razón', value: reason, inline: false },
+                                { name: '🚨 Motivo', value: reason, inline: false },
                                 { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
                                 { name: '📝 Caso', value: `#${caseNumber}`, inline: true },
                                 { name: '⚠️ Advertencias', value: warningCount.toString(), inline: false }

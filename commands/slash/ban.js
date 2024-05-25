@@ -14,7 +14,7 @@ module.exports = {
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('motivo')
-                .setDescription('Razón para banear al usuario.')
+                .setDescription('Motivo para banear al usuario.')
                 .setMinLength(3)
                 .setMaxLength(100)
                 .setRequired(true)),
@@ -54,7 +54,7 @@ module.exports = {
                     .addFields(
                         { name: '👤 Usuario', value: `<@${user.id}>`, inline: true },
                         { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
-                        { name: '🚫 Razón', value: reason, inline: false },
+                        { name: '🚫 Motivo', value: reason, inline: false },
                         { name: '📝 Caso', value: `#${caseNumber}`, inline: true }
                     )
                     .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
@@ -68,7 +68,7 @@ module.exports = {
                             .setColor(0xD93C40)
                             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
                             .addFields(
-                                { name: '🚫 Razón', value: reason, inline: false },
+                                { name: '🚫 Motivo', value: reason, inline: false },
                                 { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
                                 { name: '📝 Caso', value: `#${caseNumber}`, inline: true }
                             )
