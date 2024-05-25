@@ -29,12 +29,12 @@ Mike-Bot es un bot de Discord que proporciona varias funcionalidades útiles par
    npm install
    ```
 
-3. Crea un archivo .env en la carpeta `config` y añade tu token de bot de Discord:
+3. Crea un archivo .env en la raíz del proyecto y añade tu token de bot de Discord:
    ```env
    DISCORD_TOKEN=your-bot-token-here
    ```
 
-4. Crea un archivo config.json en la raíz del proyecto y configura tu ID de cliente y de servidor:
+4. Crea un archivo config.json en la carpeta `config` y configura tu ID de cliente y de servidor, el prefijo y el idioma por defecto del bot:
    ```json
    {
       "clientId": "your-client-id-here",
