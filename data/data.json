@@ -4,5 +4,6 @@
   "kickCaseCount": 0,
   "warnCaseCount": 0,
   "warnings": {},
-  "modLogChannelId": null
+  "modLogChannelId": null,
+  "msgLogChannelId": null
 }
