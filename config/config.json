@@ -1,6 +1,0 @@
-{
-  "clientId": "your-client-id-here",
-  "guildId": "your-guild-id-here",
-  "language": "default-bot-language",
-  "prefix": "bot-prefix"
-}
