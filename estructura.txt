@@ -1,13 +1,14 @@
 /discord-bot
 ├── commands/
 │   ├── prefix/
-│   │   ├── ... (archivos de comandos basados en prefijos)
+│   │   ├── warn.js
 │   ├── slash/
 │   │   ├── avatar.js
 |   |   |── ban.js
 │   │   ├── kick.js
 |   |   |── mute.js   
 │   │   ├── setmodlogchannel.js
+│   │   ├── setmsglogchannel.js
 |   |   |── unban.js
 │   │   ├── unmute.js
 |   |   |── warn.js
@@ -23,6 +24,7 @@
 ├── handlers/
 │   ├── commandHandler.js
 │   ├── caseNumberHandler.js
+│   ├── prefixCommandHandler.js
 ├── utils/
 │   ├── logger.js
 │   ├── database.js
