@@ -38,7 +38,9 @@ Mike-Bot es un bot de Discord que proporciona varias funcionalidades útiles par
    ```json
    {
       "clientId": "your-client-id-here",
-      "guildId": "your-guild-id-here"
+      "guildId": "your-guild-id-here",
+      "language": "default-bot-language",
+      "prefix": "bot-prefix"
    }
    ```
 
