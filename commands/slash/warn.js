@@ -49,7 +49,7 @@ module.exports = {
             await interaction.deferReply({ ephemeral: true });
 
             try {
-                const caseNumber = getCaseNumber();
+                const caseNumber = getCaseNumber('warn');
                 const warningCount = addWarning(user.id);
                 const serverIconURL = interaction.guild.iconURL();
 
