@@ -140,4 +140,4 @@ yarn-error.log
 #JSON
 config.json
 data.json
-
+config/config.json
