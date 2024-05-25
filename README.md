@@ -50,7 +50,7 @@ Mike-Bot es un bot de Discord que proporciona varias funcionalidades útiles par
 
 ## 🔗 Invitación 
 
-- Puedes invitar a **Mike Bot** a tu servidor a través de este [Enlace](https://discord.com/oauth2/authorize?client_id=1241620050683891752&scope=applications.commands)
+- Puedes invitar a **Mike Bot** a tu servidor a través de este [Enlace](https://discord.com/oauth2/authorize?client_id=1241620050683891752&permissions=8&scope=bot+applications.commands)
 
 ## 🤝 Contribuciones
 - Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cualquier cambio importante antes de enviar un pull request.
