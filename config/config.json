@@ -1,8 +1,6 @@
 {
-  "CLIENT_TOKEN": " ",
-  "clientId": " ",
-  "guildId": " ",
-  "language": " ",
-  "prefix": " ",
-  "serverId": " "
+  "clientId": "your-client-id-here",
+  "guildId": "your-guild-id-here",
+  "language": "default-bot-language",
+  "prefix": "bot-prefix"
 }
