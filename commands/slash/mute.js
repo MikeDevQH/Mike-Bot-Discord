@@ -54,11 +54,11 @@ module.exports = {
                 .setTitle('Usuario Muteado')
                 .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
                 .addFields(
-                    { name: 'Usuario', value: `<@${member.id}>`, inline: true },
-                    { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true },
-                    { name: 'Razón', value: reason, inline: false },
-                    { name: 'Tiempo', value: timeInput, inline: true},
-                    { name: 'Caso', value: `#${caseNumber}`, inline: true }
+                    { name: '👤 Usuario', value: `<@${member.id}>`, inline: true },
+                    { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
+                    { name: '🔇 Razón', value: reason, inline: false },
+                    { name: '⏰ Tiempo', value: timeInput, inline: true},
+                    { name: '📋 Caso', value: `#${caseNumber}`, inline: true }
                 )
                 .setColor(0xD93C40)
                 .setFooter({ text: `${interaction.guild.name} `, iconURL: serverIconURL })
@@ -81,7 +81,9 @@ module.exports = {
                 .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
                 .addFields(
                     { name: '🔇 Razón', value: reason, inline: false },
-                    { name: '⏰ Tiempo', value: timeInput, inline: true }
+                    { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
+                    { name: '⏰ Tiempo', value: timeInput, inline: true },
+                    { name: '📋 Caso', value: `#${caseNumber}`, inline: false }
                 )
                 .setColor(0xD93C40)
                 .setFooter({ text: `${interaction.guild.name} `, iconURL: serverIconURL})

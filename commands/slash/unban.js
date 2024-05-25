@@ -40,8 +40,8 @@ module.exports = {
                 .setTitle('Usuario Desbaneado')
                 .setThumbnail(user.displayAvatarURL({ dynamic: true })) 
                 .addFields(
-                    { name: 'ID', value: userId, inline: false },
-                    { name: 'Staff', value: `<@${interaction.user.id}>`, inline: false },
+                    { name: '👤 ID', value: userId, inline: false },
+                    { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: false },
                 )
                 .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                 .setTimestamp();
@@ -53,7 +53,10 @@ module.exports = {
                 .setTitle('Sanción Removida')
                 .setDescription(`Has sido desbaneado de ${interaction.guild.name}.`)
                 .setColor(0x01DD7B)
-                .setThumbnail(user.displayAvatarURL({ dynamic: true })) // Usar avatar animado si está disponible
+                .setThumbnail(user.displayAvatarURL({ dynamic: true })) 
+                .setFields(
+                    { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: false },
+                )
                 .setFooter({ text: interaction.guild.name, iconURL: serverIconURL })
                 .setTimestamp();
 

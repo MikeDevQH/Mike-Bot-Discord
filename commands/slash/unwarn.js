@@ -4,57 +4,70 @@ const fs = require('fs');
 const path = require('path');
 
 const dataPath = path.resolve(__dirname, '../../data/data.json');
+
 let data = require(dataPath);
+
+const removeWarning = (userId) => {
+    if (data.warnings[userId]) {
+        data.warnings[userId] -= 1; 
+        if (data.warnings[userId] <= 0) {
+            delete data.warnings[userId]; 
+        }
+        fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+        return true; 
+    }
+    return false; 
+};
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('unmute')
-        .setDescription('Desmutear a un usuario')
+        .setName('unwarn')
+        .setDescription('Retira una advertencia a un usuario del servidor.')
         .addUserOption(option =>
             option.setName('usuario')
-                .setDescription('El usuario a desmutear')
+                .setDescription('El usuario a retirarle la advertencia.')
                 .setRequired(true)),
+
     async execute(interaction) {
-        const member = interaction.options.getMember('usuario');
+        const user = interaction.options.getUser('usuario');
 
-        // Verifica si el usuario tiene permisos para quitar el aislamiento temporal
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
-            return interaction.reply({ content: 'No tienes permisos para usar este comando.', ephemeral: true });
+            return interaction.reply({ content: 'No tienes permiso para ejecutar este comando.', ephemeral: true });
         }
 
-        if (!member.manageable) {
-            return interaction.reply({ content: 'No puedo desmutear a este usuario.', ephemeral: true });
-        }
+        const success = removeWarning(user.id);
 
-        try {
-            await member.timeout(null); 
+        if (success) {
+            const warningCount = data.warnings[user.id] || 0; // Obtenemos el número de advertencias del usuario
+
             const serverIconURL = interaction.guild.iconURL();
             const embed = new EmbedBuilder()
-                .setTitle('Usuario Desmuteado')
-                .setFields(
-                { name: '👤 Usuario', value: `<@${member.id}>`, inline: true },
-                { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
-            )
-
-                .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
+                .setTitle('Advertencia Retirada')
                 .setColor(0x01DD7B)
+                .setThumbnail(user.displayAvatarURL({ dynamic: true })) 
+                .addFields(
+                    { name: 'Usuario', value: `<@${user.id}>`, inline: true },
+                    { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true },
+                    { name: 'Advertencias', value: warningCount.toString(), inline: true }, // Mostramos el número de advertencias
+                )
                 .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                 .setTimestamp();
 
             await interaction.reply({ embeds: [embed], ephemeral: true });
 
             const dmEmbed = new EmbedBuilder()
-                .setTitle('Sanción Removida')
-                .setDescription(`Has sido desmuteado de ${interaction.guild.name}.`)
-                .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
+                .setTitle('Advertencia Retirada')
+                .setDescription(`Se te ha retirado una advertencia en ${interaction.guild.name}.`)
                 .setColor(0x01DD7B)
-                .setFields(
+                .setThumbnail(user.displayAvatarURL({ dynamic: true })) 
+                .addFields(
                     { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: false },
+                    { name: '⚠️ Advertencias', value: warningCount.toString(), inline: true },
                 )
                 .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                 .setTimestamp();
 
-            await member.send({ embeds: [dmEmbed] }).catch(err => {
+            await user.send({ embeds: [dmEmbed] }).catch(err => {
                 console.log('No se pudo enviar el mensaje directo al usuario.');
             });
 
@@ -72,9 +85,8 @@ module.exports = {
             } else {
                 console.log('No se ha configurado el ID del canal de registros.');
             }
-        } catch (error) {
-            console.error(error);
-            return interaction.reply({ content: 'Hubo un error al intentar desaislar al usuario.', ephemeral: true });
+        } else {
+            await interaction.reply({ content: `El usuario ${user.username} no tiene advertencias que retirar.`, ephemeral: true });
         }
     },
 };

@@ -58,11 +58,11 @@ module.exports = {
                 .setColor(0xFFA500)
                 .setThumbnail(user.displayAvatarURL({ dynamic: true }))
                 .addFields(
-                    { name: 'Usuario', value: `<@${user.id}>`, inline: true },
-                    { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true },
-                    { name: 'Razón', value: reason, inline: false },
-                    { name: 'Caso', value: `#${caseNumber}`, inline: true },
-                    { name: 'Advertencias', value: warningCount.toString(), inline: true }
+                    { name: '👤 Usuario', value: `<@${user.id}>`, inline: true },
+                    { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
+                    { name: '🚨 Razón', value: reason, inline: false },
+                    { name: '📝 Caso', value: `#${caseNumber}`, inline: true },
+                    { name: '⚠️ Advertencias', value: warningCount.toString(), inline: true }
                 )
                 .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                 .setTimestamp();
@@ -76,8 +76,9 @@ module.exports = {
                             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
                             .addFields(
                                 { name: '🚨 Razón', value: reason, inline: false },
+                                { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
                                 { name: '📝 Caso', value: `#${caseNumber}`, inline: true },
-                                { name: '⚠️ Advertencias', value: warningCount.toString(), inline: true }
+                                { name: '⚠️ Advertencias', value: warningCount.toString(), inline: false }
                             )
                             .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                             .setTimestamp()

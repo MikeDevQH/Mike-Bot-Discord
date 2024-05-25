@@ -48,10 +48,10 @@ module.exports = {
                     .setColor(0xD93C40)
                     .setThumbnail(user.displayAvatarURL({ dynamic: true })) 
                     .addFields(
-                        { name: 'Usuario', value: `<@${member.id}>`, inline: true },
-                        { name: 'Staff', value: `<@${interaction.user.id}>`, inline: true },
-                        { name: 'Razón', value: reason, inline: false },
-                        { name: 'Caso', value: `#${caseNumber}`, inline: true }
+                        { name: '👤 Usuario', value: `<@${member.id}>`, inline: true },
+                        { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
+                        { name: '❌ Razón', value: reason, inline: false },
+                        { name: '📋 Caso', value: `#${caseNumber}`, inline: true }
                     )
                     .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                     .setTimestamp();
@@ -66,6 +66,7 @@ module.exports = {
                             .setThumbnail(user.displayAvatarURL({ dynamic: true })) // Añadir la foto de perfil del usuario
                             .addFields(
                                 { name: '❌ Razón', value: reason, inline: true },
+                                { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
                                 { name: '📋 Caso', value: `#${caseNumber}`, inline: true }
                             )
                             .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
