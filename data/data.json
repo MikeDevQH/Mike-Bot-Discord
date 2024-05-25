@@ -1,9 +1,11 @@
 {
+  
   "banCaseCount": 0,
   "muteCaseCount": 0,
   "kickCaseCount": 0,
   "warnCaseCount": 0,
   "warnings": {},
   "modLogChannelId": null,
-  "msgLogChannelId": null
+  "msgLogChannelId": null 
+  
 }

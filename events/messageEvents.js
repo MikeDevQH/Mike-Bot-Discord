@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('@discordjs/builders');
+const { EmbedBuilder } = require('@discordjs/builders'); 
 const fs = require('fs');
 const path = require('path');
 
