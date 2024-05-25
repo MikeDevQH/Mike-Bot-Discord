@@ -34,7 +34,7 @@ Mike-Bot es un bot de Discord que proporciona varias funcionalidades útiles par
    DISCORD_TOKEN=your-bot-token-here
    ```
 
-4. Crea un archivo config.json en la raíz del proyecto y configura tu ID de cliente y de servidor:
+4. Crea un archivo config.json en la carpeta `config` y configura tu ID de cliente y de servidor, el prefijo y el idioma por defecto del bot:
    ```json
    {
       "clientId": "your-client-id-here",
