@@ -32,7 +32,8 @@ const loadCommands = (client) => {
     const dataPath = path.resolve(__dirname, '../data/data.json');
     client.data = require(dataPath);
 
-    const commands = Array.from(client.commands.values()).map(command => command.data.toJSON());
+    const commands = Array.from(client.commands.values()).map(command => typeof command.data.toJSON === 'function' ? command.data.toJSON() : command.data);
+
     const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
 
     (async () => {

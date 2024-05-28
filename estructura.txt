@@ -1,4 +1,4 @@
-/discord-bot
+/MikeMod
 ├── commands/
 │   ├── prefix/
 │   │   ├── warn.js
@@ -10,7 +10,9 @@
 │   │   ├── setmodlogchannel.js
 │   │   ├── setmsglogchannel.js
 |   |   |── unban.js
+|   |   |── setTicketConfig
 │   │   ├── unmute.js
+|   |   |── unwarn.js
 |   |   |── warn.js
 ├── config/
 │   ├── config.json
@@ -20,16 +22,16 @@
 │   ├── data.json
 ├── events/
 │   ├── interactionCreate.js
+│   ├── messageEvents.js
 │   ├── ready.js
 ├── handlers/
 │   ├── commandHandler.js
 │   ├── caseNumberHandler.js
 │   ├── prefixCommandHandler.js
+├── logs/
 ├── utils/
-│   ├── logger.js
 │   ├── database.js
+│   ├── logger.js
 ├── .env
-├── .gitignore
 ├── index.js
 ├── package.json
-└── README.md

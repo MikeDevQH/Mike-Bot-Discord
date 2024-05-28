@@ -24,7 +24,7 @@ module.exports = (client) => {
         const embed = new EmbedBuilder()
             .setFooter({ text: `${message.guild.name}`, iconURL: message.guild.iconURL() })
             .setTimestamp()
-            .setColor(action === 'deleted' ? 0x06b6dc : 0x06b6dc)
+            .setColor(action === 'deleted' ? 0x3a69cb: 0x3a69cb)
             .setThumbnail(message.author.displayAvatarURL());
 
         if (action === 'deleted') {
