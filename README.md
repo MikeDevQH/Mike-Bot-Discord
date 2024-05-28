@@ -1,11 +1,11 @@
-# Mike-Bot 🤖
+# MikeMod 🤖
 
-Mike-Bot es un bot de Discord que proporciona varias funcionalidades útiles para gestionar tu servidor de Discord. Este bot incluye comandos para gestionar idiomas, moderación, y más.
+MikeMod es un bot de Discord que proporciona varias funcionalidades útiles para gestionar tu servidor de Discord. Este bot incluye comandos para gestionar idiomas, moderación, y más.
 
 ## ✨ Características
 
 - 🌐 Cambiar el idioma del bot.
-- 🛡️ Moderación básica (banear, kickear, etc.).
+- 🛡️ Sistema de moderación y registros.
 - ⚙️ Responder a comandos personalizados.
 - 🔗 Integraciones con varias API.
 
@@ -58,4 +58,4 @@ Mike-Bot es un bot de Discord que proporciona varias funcionalidades útiles par
 - Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cualquier cambio importante antes de enviar un pull request.
 
 
-### *¡Gracias por usar Mike-Bot! 🎉*
+### *¡Gracias por usar MikeMod! 🎉*
