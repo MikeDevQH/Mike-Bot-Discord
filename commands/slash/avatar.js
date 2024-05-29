@@ -24,7 +24,7 @@ module.exports = {
             
             // Crear un EmbedBuilder para mostrar la información del avatar
             const avatarEmbed = new EmbedBuilder()
-                .setColor(0x3a69cb) // Color del embed
+                .setColor(0x3498db) // Color del embed
                 .setTitle(`Avatar de ${user.username}`) // Título del embed
                 .setImage(avatarURL) // Imagen del avatar
                 .setFooter({ text: `Solicitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) }); // Pie de página con el nombre del solicitante y su avatar

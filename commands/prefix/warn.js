@@ -27,7 +27,7 @@ module.exports = {
         const embed = new EmbedBuilder()
                 .setTitle('¡Usa el formato correcto!')
                 .setDescription('`.warn @usuario motivo`')
-                .setColor('#5964F4');
+                .setColor('#3498db');
         const user = message.mentions.users.first();
         const reason = args.slice(1).join(' ');
 
