@@ -50,9 +50,6 @@ Mike es un bot de Discord que proporciona varias funcionalidades útiles para ge
    node index.js
    ```
 
-## 🔗 Invitación 
-
-- Puedes invitar a **Mike** a tu servidor a través de este [Enlace](https://discord.com/oauth2/authorize?client_id=1241620050683891752&permissions=8&scope=bot+applications.commands)
 
 ## 🤝 Contribuciones
 - Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cualquier cambio importante antes de enviar un pull request.
