@@ -142,3 +142,4 @@ yarn-error.log
 config.json
 data.json
 config/config.json
+sftp.json
