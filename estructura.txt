@@ -7,10 +7,10 @@
 |   |   |── ban.js
 │   │   ├── kick.js
 |   |   |── mute.js   
-│   │   ├── setmodlogchannel.js
-│   │   ├── setmsglogchannel.js
+│   │   ├── setModLogChannel.js
+│   │   ├── setMsgLogChannel.js
 |   |   |── unban.js
-|   |   |── setTicketConfig
+|   |   |── profile.js
 │   │   ├── unmute.js
 |   |   |── unwarn.js
 |   |   |── warn.js
@@ -25,7 +25,6 @@
 │   ├── interactionCreate.js
 │   ├── messageEvents.js
 │   ├── ready.js
-|   |── messageEvents.js
 ├── handlers/
 │   ├── commandHandler.js
 │   ├── caseNumberHandler.js
@@ -33,7 +32,6 @@
 ├── logs/
 ├── utils/
 │   ├── database.js
-│   ├── logger.js
 ├── .env
 ├── index.js
 ├── package.json
