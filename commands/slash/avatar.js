@@ -1,4 +1,3 @@
-// Importar las clases necesarias de las librerías discord.js y @discordjs/builders
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
@@ -12,7 +11,6 @@ module.exports = {
                 .setDescription('El usuario del cual deseas ver el avatar.')
                 .setRequired(true)),
     
-    // Función asíncrona que se ejecuta cuando se utiliza el comando
     async execute(interaction) {
         // Obtener el usuario seleccionado
         const user = interaction.options.getUser('usuario');
@@ -24,18 +22,18 @@ module.exports = {
             
             // Crear un EmbedBuilder para mostrar la información del avatar
             const avatarEmbed = new EmbedBuilder()
-                .setColor(0x3498db) // Color del embed
-                .setTitle(`Avatar de ${user.username}`) // Título del embed
-                .setImage(avatarURL) // Imagen del avatar
-                .setFooter({ text: `Solicitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) }); // Pie de página con el nombre del solicitante y su avatar
+                .setColor(0x3498db) 
+                .setTitle(`Avatar de ${user.username}`) 
+                .setImage(avatarURL)
+                .setFooter({ text: `Solicitado por ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) }); 
 
             // Crear una fila de acción con un botón para ver el avatar en el navegador
             const row = new ActionRowBuilder()
                 .addComponents(
                     new ButtonBuilder()
-                        .setLabel('Ver en el navegador') // Etiqueta del botón
-                        .setStyle(ButtonStyle.Link) // Estilo del botón (enlace)
-                        .setURL(avatarURL) // URL a la que redirige el botón
+                        .setLabel('Ver en el navegador') 
+                        .setStyle(ButtonStyle.Link) 
+                        .setURL(avatarURL) 
                 );
 
             // Responder a la interacción con el embed y el botón

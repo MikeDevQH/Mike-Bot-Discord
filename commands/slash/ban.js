@@ -5,6 +5,7 @@ const { getCaseNumber } = require('../../handlers/caseNumberHandler');
 const data = require('../../data/data.json');
 
 module.exports = {
+    // Definir el comando 'ban' con su descripción y una opción de usuario
     data: new SlashCommandBuilder()
         .setName('ban')
         .setDescription('Banea a un usuario del servidor.')
@@ -20,9 +21,11 @@ module.exports = {
                 .setRequired(true)),
 
     async execute(interaction) {
+        // Obtener el usuario y motivo seleccionado
         const user = interaction.options.getUser('usuario');
         const reason = interaction.options.getString('motivo');
 
+        // Verificar si el miembro que ejecuta el comando tiene permisos para banear
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
             return interaction.reply({ content: 'No tienes permiso para ejecutar este comando.', ephemeral: true });
         }
@@ -47,6 +50,7 @@ module.exports = {
                 const caseNumber = getCaseNumber('ban');
                 const serverIconURL = interaction.guild.iconURL({ dynamic: true });
 
+                 // Crear un Embed para el mensaje de sanción
                 const embed = new EmbedBuilder()
                     .setTitle('Usuario Baneado')
                     .setColor(0xD93C40)
@@ -60,6 +64,7 @@ module.exports = {
                     .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                     .setTimestamp();
 
+                    // Enviar un mensaje al usuario baneado
                 await member.send({
                     embeds: [
                         new EmbedBuilder()
@@ -77,7 +82,9 @@ module.exports = {
                     ]
                 }).catch(console.error);
 
+                // Banear al usuario del servidor
                 await member.ban({ reason }).catch(console.error);
+
 
                 await interaction.editReply({ embeds: [embed] });
 
@@ -96,6 +103,7 @@ module.exports = {
                 await interaction.editReply({ content: '¡Hubo un error al ejecutar este comando!', ephemeral: true });
             }
         } else {
+            // Responder si el usuario no está en el servidor
             await interaction.reply({ content: 'Ese usuario no está en este servidor.', ephemeral: true });
         }
     },

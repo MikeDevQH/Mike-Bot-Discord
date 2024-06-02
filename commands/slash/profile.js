@@ -2,6 +2,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, AttachmentBuilder, Button
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { profileImage } = require('discord-arts');
 
+// Definir el comando 'profile' con su descripción y opciones
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('profile')
@@ -26,7 +27,7 @@ module.exports = {
             const currentDate = new Date();
             const formattedDate = `${currentDate.toLocaleDateString()}`;
 
-            // Fetch profile image
+            // Obtener la imagen de perfil del usuario
             const buffer = await profileImage(user.id, {
                 squareAvatar: false,
                 removeAvatarFrame: false,
@@ -40,9 +41,10 @@ module.exports = {
             const attachment = new AttachmentBuilder(buffer, { name: 'profile-image.png' });
             const avatarURL = user.displayAvatarURL({ dynamic: true, size: 1024 });
 
-            // Fetch user profile to get banner
+            // Obtener el perfil el usuario para obtener su embed
             const fetchedUser = await interaction.client.users.fetch(user.id, { force: true });
 
+            // Embed con la información del usuario
             const embed = new EmbedBuilder()
                 .setColor('#3498db')
                 .setAuthor({ name: interaction.client.user.username, iconURL: interaction.client.user.displayAvatarURL() })
@@ -80,6 +82,7 @@ module.exports = {
             const filter = i => (i.customId === 'show_permissions' || i.customId === 'show_avatar' || i.customId === 'show_banner') && i.user.id === interaction.user.id;
             const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
 
+            // Manejar las interacciones con los botones
             collector.on('collect', async i => {
                 if (i.customId === 'show_permissions') {
                     const permissions = member.permissions.toArray();
@@ -87,6 +90,7 @@ module.exports = {
                         ? permissions.map(permission => `✅ ${permission.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, char => char.toUpperCase())}`).join('\n')
                         : 'No tiene permisos especiales.';
 
+                    // Embed con la lista de permisos
                     const permissionsEmbed = new EmbedBuilder()
                         .setColor('#3498db')
                         .setTitle(`Permisos de ${user.tag}`)
@@ -99,6 +103,8 @@ module.exports = {
 
                     await i.reply({ embeds: [permissionsEmbed], ephemeral: true });
                 } else if (i.customId === 'show_avatar') {
+
+                    // Embed con el avatar del usuario
                     const avatarEmbed = new EmbedBuilder()
                         .setColor('#3498db')
                         .setTitle(`Avatar de ${user.tag}`)

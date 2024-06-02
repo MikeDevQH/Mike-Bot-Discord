@@ -6,6 +6,7 @@ const path = require('path');
 const dataPath = path.resolve(__dirname, '../../data/data.json');
 let data = require(dataPath);
 
+// Definir el comando 'setmsglogchannel' con su descripción y opciones
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('setmsglogchannel')

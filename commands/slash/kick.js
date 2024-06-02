@@ -24,7 +24,6 @@ module.exports = {
                 .setMaxLength(100)
                 .setRequired(true)),
 
-    // Función asíncrona que se ejecuta cuando se utiliza el comando
     async execute(interaction) {
         const user = interaction.options.getUser('usuario');
         const reason = interaction.options.getString('motivo');
@@ -34,7 +33,7 @@ module.exports = {
             return interaction.reply({ content: 'No tienes permiso para ejecutar este comando.', ephemeral: true });
         }
 
-        const member = interaction.guild.members.cache.get(user.id); // Obtener el miembro del servidor
+        const member = interaction.guild.members.cache.get(user.id); 
         if (member) {
             await interaction.deferReply({ ephemeral: true });
 
@@ -42,7 +41,7 @@ module.exports = {
                 const caseNumber = getCaseNumber('kick'); 
                 const serverIconURL = interaction.guild.iconURL({ dynamic: true }); 
 
-                // Crear el embed para el mensaje de expulsión
+                // Crear el embed para el mensaje de sanción
                 const embed = new EmbedBuilder()
                     .setTitle('Usuario Expulsado')
                     .setColor(0xD93C40)
@@ -63,7 +62,7 @@ module.exports = {
                             .setTitle('¡Has sido Sancionado!')
                             .setDescription(`Has sido expulsado de ${interaction.guild.name}.`)
                             .setColor(0xD93C40)
-                            .setThumbnail(user.displayAvatarURL({ dynamic: true })) // Añadir la foto de perfil del usuario
+                            .setThumbnail(user.displayAvatarURL({ dynamic: true }))
                             .addFields(
                                 { name: '❌ Motivo', value: reason, inline: true },
                                 { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
@@ -77,7 +76,7 @@ module.exports = {
                 // Expulsar al usuario del servidor
                 await member.kick(reason).catch(console.error);
 
-                // Editar la respuesta de la interacción con el embed de expulsión
+
                 await interaction.editReply({ embeds: [embed] });
 
                 // Enviar el embed al canal de registros si está configurado

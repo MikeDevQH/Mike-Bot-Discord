@@ -4,10 +4,12 @@ const { getCaseNumber } = require('../../handlers/caseNumberHandler');
 const fs = require('fs');
 const path = require('path');
 
+// Ruta del archivo data.json para almacenar el número de casos de timeout
 const dataPath = path.resolve(__dirname, '../../data/data.json');
 let data = require(dataPath);
 
 module.exports = {
+    // Definir el comando 'mute' con su descripción y opciones
     data: new SlashCommandBuilder()
         .setName('mute')
         .setDescription('Mutear temporalmente a un usuario')
@@ -33,6 +35,7 @@ module.exports = {
         const reason = interaction.options.getString('motivo');
         const timeInput = interaction.options.getString('tiempo');
 
+        // Verificar si el miembro que ejecuta el comando tiene permisos para mutear
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
             return interaction.reply({ content: 'No tienes permisos para usar este comando.', ephemeral: true });
         }
@@ -75,6 +78,7 @@ module.exports = {
                 }
             }
 
+             // Crear el embed para el mensaje al DM de sanción
             const dmEmbed = new EmbedBuilder()
                 .setTitle('¡Has sido Sancionado!')
                 .setDescription(`Has sido muteado de ${interaction.guild.name}.`)
@@ -89,6 +93,7 @@ module.exports = {
                 .setFooter({ text: `${interaction.guild.name} `, iconURL: serverIconURL})
                 .setTimestamp();
 
+            // Enviar mensaje de sanción al usuario
             await member.send({ embeds: [dmEmbed] }).catch(err => {
                 console.log('No se pudo enviar el mensaje directo al usuario.');
             });
