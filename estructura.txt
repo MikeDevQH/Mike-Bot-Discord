@@ -1,4 +1,6 @@
 /MikeMod
+├── buttonHandler/
+│   ├── createTicket/
 ├── commands/
 │   ├── prefix/
 │   │   ├── warn.js
@@ -9,6 +11,7 @@
 |   |   |── mute.js   
 │   │   ├── setModLogChannel.js
 │   │   ├── setMsgLogChannel.js
+│   │   ├── setTicketConfig.js
 |   |   |── unban.js
 |   |   |── profile.js
 │   │   ├── unmute.js
@@ -19,6 +22,8 @@
 │   ├── config.json
 │   ├── commands.json
 │   ├── reactions.json
+├── controllers/
+│   ├── ticketConfigController.js
 ├── data/
 │   ├── data.json
 ├── events/
@@ -26,12 +31,19 @@
 │   ├── messageEvents.js
 │   ├── ready.js
 ├── handlers/
+│   ├── buttonHandler.js
 │   ├── commandHandler.js
 │   ├── caseNumberHandler.js
 │   ├── prefixCommandHandler.js
+│   ├── selectMenuHandler.js
 ├── logs/
+├── models/
+│   ├── ticketConfig.js
 ├── utils/
 │   ├── database.js
 ├── .env
 ├── index.js
 ├── package.json
+├── package-lock.json
+
+
