@@ -32,6 +32,7 @@ Mike es un bot de Discord que proporciona varias funcionalidades útiles para ge
 3. Crea un archivo .env en la raíz del proyecto y añade tu token de bot de Discord:
    ```env
    DISCORD_TOKEN=your-bot-token-here
+   MONGO_URI=your-URI-here
    ```
 
 4. Crea un archivo config.json en la carpeta `config` y configura tu ID de cliente y de servidor, el prefijo y el idioma por defecto del bot:
