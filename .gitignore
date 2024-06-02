@@ -143,3 +143,6 @@ config.json
 data.json
 config/config.json
 sftp.json
+
+#txt
+estructura.txt
