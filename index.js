@@ -27,5 +27,9 @@ loadCommands(client);
 loadButtons(client); // Cargar los manejadores de botones
 loadSelectMenus(client); // Cargar los manejadores de menús desplegables
 
+client.on('error', (error) =>{
+    console.log("Hay un error del bot en:", error)
+});
+
 // Iniciar sesión en Discord con el token del bot
 client.login(process.env.DISCORD_TOKEN);

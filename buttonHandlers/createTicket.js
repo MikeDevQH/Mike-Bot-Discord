@@ -1,4 +1,4 @@
-const { ChannelType, PermissionFlagsBits } = require('discord.js');
+const { ChannelType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const ticketConfigController = require('../controllers/ticketConfigController');
 
 module.exports = {
@@ -47,6 +47,24 @@ module.exports = {
                 },
             ]
         });
+
+        const ticketEmbed = new EmbedBuilder()
+            .setTitle('Nuevo Ticket')
+            .setDescription('Por favor, describe tu problema con detalles. No etiquetes al staff.')
+            .setColor(0x3498db);
+
+        const actionRow = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setCustomId('claimTicket')
+                .setLabel('Reclamar')
+                .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
+                .setCustomId('closeTicket')
+                .setLabel('Cerrar')
+                .setStyle(ButtonStyle.Danger)
+        );
+
+        await ticketChannel.send({ embeds: [ticketEmbed], components: [actionRow] });
 
         await interaction.reply({ content: `Ticket creado: ${ticketChannel}`, ephemeral: true });
     }
