@@ -34,6 +34,7 @@ module.exports = {
         const member = interaction.options.getMember('usuario');
         const reason = interaction.options.getString('motivo');
         const timeInput = interaction.options.getString('tiempo');
+        const user = interaction.options.getUser('usuario');
 
         // Verificar si el miembro que ejecuta el comando tiene permisos para mutear
         if (!interaction.member.permissions.has(PermissionsBitField.Flags.ModerateMembers)) {
@@ -55,7 +56,7 @@ module.exports = {
             const serverIconURL = interaction.guild.iconURL();
             const embed = new EmbedBuilder()
                 .setTitle('Usuario Muteado')
-                .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
+                .setThumbnail(user.displayAvatarURL({size: 2048, dynamic: true }))
                 .addFields(
                     { name: '👤 Usuario', value: `<@${member.id}>`, inline: true },
                     { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
@@ -67,7 +68,7 @@ module.exports = {
                 .setFooter({ text: `${interaction.guild.name} `, iconURL: serverIconURL })
                 .setTimestamp();
 
-            await interaction.reply({ embeds: [embed], ephemeral: true });
+           await interaction.reply({ embeds: [embed], ephemeral: true });
 
             // Enviar el embed al canal de registros si está configurado
             const modLogChannelId = data.modLogChannelId;
@@ -82,7 +83,7 @@ module.exports = {
             const dmEmbed = new EmbedBuilder()
                 .setTitle('¡Has sido Sancionado!')
                 .setDescription(`Has sido muteado de ${interaction.guild.name}.`)
-                .setThumbnail(member.user.displayAvatarURL({ dynamic: true })) 
+                .setThumbnail(user.displayAvatarURL({ size: 2048, dynamic: true }))
                 .addFields(
                     { name: '🔇 Motivo', value: reason, inline: false },
                     { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
