@@ -17,5 +17,14 @@ module.exports = {
 
     async getTicketConfig(guildId) {
         return await TicketConfig.findOne({ guildId });
+    },
+
+    async getTicketLogChannel(guildId) {
+        const ticketConfig = await TicketConfig.findOne({ guildId });
+        if (ticketConfig) {
+            return ticketConfig.logChannelId;
+        } else {
+            return null; // O retorna lo que sea apropiado para indicar que el canal de logs no está configurado
+        }
     }
 };
