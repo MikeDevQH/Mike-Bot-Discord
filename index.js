@@ -1,6 +1,6 @@
 const { Client } = require('discord.js');
 require('dotenv').config();
-const { loadCommands } = require('./handlers/commandHandler');
+const { loadAllCommands } = require('./handlers/commandHandler');
 const readyHandler = require('./events/ready');
 const interactionCreateHandler = require('./events/interactionCreate');
 const messageEventsHandler = require('./events/messageEvents');
@@ -23,7 +23,7 @@ messageEventsHandler(client);
 prefixCommandHandler(client, config.prefix); 
 
 // Cargar comandos, botones y menús desplegables
-loadCommands(client);
+loadAllCommands(client);
 loadButtons(client); // Cargar los manejadores de botones
 loadSelectMenus(client); // Cargar los manejadores de menús desplegables
 

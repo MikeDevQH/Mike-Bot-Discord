@@ -1,9 +1,9 @@
 const { PermissionsBitField, EmbedBuilder, EmbedType } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-const { getCaseNumber } = require('../../handlers/caseNumberHandler');
+const { getCaseNumber } = require('../../../handlers/caseNumberHandler');
 
-const dataPath = path.resolve(__dirname, '../../data/data.json');
+const dataPath = path.resolve(__dirname, '../../../data/data.json');
 let data = require(dataPath);
 
 const addWarning = (userId) => {

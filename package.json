@@ -10,6 +10,7 @@
     "license": "ISC",
     "description": "",
     "dependencies": {
+        "anime-actions": "^2.1.1",
         "discord-arts": "^0.5.9",
         "discord.js": "^14.15.2",
         "dotenv": "^16.4.5",

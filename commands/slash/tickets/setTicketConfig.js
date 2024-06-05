@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { EmbedBuilder, ChannelType, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, StringSelectMenuBuilder } = require('discord.js');
-const ticketConfigController = require('../../controllers/ticketConfigController');
+const ticketConfigController = require('../../../controllers/ticketConfigController');
 
 module.exports = {
     data: new SlashCommandBuilder()

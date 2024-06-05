@@ -3,7 +3,7 @@ const { PermissionsBitField } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 
-const dataPath = path.resolve(__dirname, '../../data/data.json');
+const dataPath = path.resolve(__dirname, '../../../data/data.json');
 let data = require(dataPath);
 
 // Definir el comando 'setmodchannel' con su descripción y opciones

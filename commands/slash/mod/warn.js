@@ -1,13 +1,12 @@
-// En el archivo warn.js
-
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, EmbedBuilder } = require('discord.js');
 const fs = require('fs');
-const { getCaseNumber } = require('../../handlers/caseNumberHandler');
+const { getCaseNumber } = require('../../../handlers/caseNumberHandler');
 const { wrap } = require('module');
 const path = require('path');
 
-const dataPath = path.resolve(__dirname, '../../data/data.json');
+// Ruta del archivo data.json para almacenar el número de casos de avisos
+const dataPath = path.resolve(__dirname, '../../../data/data.json');
 
 let data = require(dataPath);
 

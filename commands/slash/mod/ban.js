@@ -1,80 +1,89 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, EmbedBuilder } = require('discord.js');
-const fs = require('fs');
-const { getCaseNumber } = require('../../handlers/caseNumberHandler');
 const path = require('path');
-
-// Ruta del archivo data.json para almacenar el número de casos de expulsiones
-const dataPath = path.resolve(__dirname, '../../data/data.json');
-let data = require(dataPath);
+const { getCaseNumber } = require('../../../handlers/caseNumberHandler');
+const data = require('../../../data/data.json');
 
 module.exports = {
-    // Definir el comando 'kick' con su descripción y opciones
+    // Definir el comando 'ban' con su descripción y una opción de usuario
     data: new SlashCommandBuilder()
-        .setName('kick')
-        .setDescription('Expulsa a un usuario del servidor.')
+        .setName('ban')
+        .setDescription('Banea a un usuario del servidor.')
         .addUserOption(option =>
             option.setName('usuario')
-                .setDescription('El usuario a expulsar.')
+                .setDescription('El usuario a banear.')
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('motivo')
-                .setDescription('Motivo para expulsar al usuario.')
+                .setDescription('Motivo para banear al usuario.')
                 .setMinLength(3)
                 .setMaxLength(100)
                 .setRequired(true)),
 
     async execute(interaction) {
+        // Obtener el usuario y motivo seleccionado
         const user = interaction.options.getUser('usuario');
         const reason = interaction.options.getString('motivo');
 
-        // Verificar si el miembro que ejecuta el comando tiene permisos para expulsar
-        if (!interaction.member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
+        // Verificar si el miembro que ejecuta el comando tiene permisos para banear
+        if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
             return interaction.reply({ content: 'No tienes permiso para ejecutar este comando.', ephemeral: true });
         }
 
-        const member = interaction.guild.members.cache.get(user.id); 
+        try {
+            const banInfo = await interaction.guild.bans.fetch(user.id);
+            if (banInfo) {
+                return interaction.reply({ content: 'Ese usuario ya está baneado.', ephemeral: true });
+            }
+        } catch (error) {
+            if (error.code !== 10026) {
+                console.error('Error al verificar el estado de baneo del usuario:', error);
+                return interaction.reply({ content: 'Hubo un error al verificar el estado de baneo del usuario.', ephemeral: true });
+            }
+        }
+
+        const member = interaction.guild.members.cache.get(user.id);
         if (member) {
             await interaction.deferReply({ ephemeral: true });
 
             try {
-                const caseNumber = getCaseNumber('kick'); 
-                const serverIconURL = interaction.guild.iconURL({ dynamic: true }); 
+                const caseNumber = getCaseNumber('ban');
+                const serverIconURL = interaction.guild.iconURL({ dynamic: true });
 
-                // Crear el embed para el mensaje de sanción
+                 // Crear un Embed para el mensaje de sanción
                 const embed = new EmbedBuilder()
-                    .setTitle('Usuario Expulsado')
+                    .setTitle('Usuario Baneado')
                     .setColor(0xD93C40)
-                    .setThumbnail(user.displayAvatarURL({ dynamic: true })) 
+                    .setThumbnail(user.displayAvatarURL({ dynamic: true }))
                     .addFields(
-                        { name: '👤 Usuario', value: `<@${member.id}>`, inline: true },
+                        { name: '👤 Usuario', value: `<@${user.id}>`, inline: true },
                         { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
-                        { name: '❌ Motivo', value: reason, inline: false },
-                        { name: '📋 Caso', value: `#${caseNumber}`, inline: true }
+                        { name: '🚫 Motivo', value: reason, inline: false },
+                        { name: '📝 Caso', value: `#${caseNumber}`, inline: true }
                     )
                     .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                     .setTimestamp();
 
-                // Enviar un mensaje al usuario expulsado
+                    // Enviar un mensaje al usuario baneado
                 await member.send({
                     embeds: [
                         new EmbedBuilder()
                             .setTitle('¡Has sido Sancionado!')
-                            .setDescription(`Has sido expulsado de ${interaction.guild.name}.`)
+                            .setDescription(`Has sido baneado de ${interaction.guild.name}.`)
                             .setColor(0xD93C40)
                             .setThumbnail(user.displayAvatarURL({ dynamic: true }))
                             .addFields(
-                                { name: '❌ Motivo', value: reason, inline: true },
+                                { name: '🚫 Motivo', value: reason, inline: false },
                                 { name: '👮‍♂️ Staff', value: `<@${interaction.user.id}>`, inline: true },
-                                { name: '📋 Caso', value: `#${caseNumber}`, inline: true }
+                                { name: '📝 Caso', value: `#${caseNumber}`, inline: true }
                             )
                             .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
                             .setTimestamp()
                     ]
                 }).catch(console.error);
-                    
-                // Expulsar al usuario del servidor
-                await member.kick(reason).catch(console.error);
+
+                // Banear al usuario del servidor
+                await member.ban({ reason }).catch(console.error);
 
 
                 await interaction.editReply({ embeds: [embed] });
@@ -83,17 +92,12 @@ module.exports = {
                 const modLogChannelId = data.modLogChannelId;
                 if (modLogChannelId) {
                     const logChannel = interaction.guild.channels.cache.get(modLogChannelId);
-                    if (logChannel && logChannel.isTextBased()) { // Verifica si el canal es de texto
-                        await logChannel.send({ embeds: [embed] }).catch(err => {
-                            console.error('No se pudo enviar el embed al canal de registros:', err);
-                        });
+                    if (logChannel) {
+                        await logChannel.send({ embeds: [embed] });
                     } else {
-                        console.log('El canal de registros configurado no es de texto o no existe.');
+                        console.error('No se pudo encontrar el canal de registros de moderación.');
                     }
-                } else {
-                    console.log('No se ha configurado el ID del canal de registros.');
                 }
-
             } catch (error) {
                 console.error(error);
                 await interaction.editReply({ content: '¡Hubo un error al ejecutar este comando!', ephemeral: true });

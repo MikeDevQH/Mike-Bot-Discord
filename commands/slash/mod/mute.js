@@ -1,11 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, EmbedBuilder } = require('discord.js');
-const { getCaseNumber } = require('../../handlers/caseNumberHandler');
+const { getCaseNumber } = require('../../../handlers/caseNumberHandler');
 const fs = require('fs');
 const path = require('path');
 
 // Ruta del archivo data.json para almacenar el número de casos de timeout
-const dataPath = path.resolve(__dirname, '../../data/data.json');
+const dataPath = path.resolve(__dirname, '../../../data/data.json');
 let data = require(dataPath);
 
 module.exports = {
