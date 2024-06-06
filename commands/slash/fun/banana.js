@@ -35,16 +35,15 @@ module.exports = {
 
       // Buscar el rango correspondiente a la medida aleatoria
       const rango = medidas.find(({ min, max }) => medidaAleatoria >= min && medidaAleatoria <= max);
-
+      const serverIconURL = interaction.guild.iconURL({ dynamic: true }); 
+      
       const embed = new EmbedBuilder()
         .setTitle(`La banana de ${displayName} mide...`)
         .setDescription(`${medidaAleatoria} cm 🍌`)
         .setColor(0xFFD700)
         .setImage(rango.image)
-        .setFooter({
-          text: `TamaInteractions`,
-          iconURL: 'https://cdn.discordapp.com/avatars/1246959068883718165/d8b4894b32aa878981e719e6bf26ff88.png?size=1024'
-      });
+        .setFooter({ text: `${interaction.guild.name}`, iconURL: serverIconURL })
+       .setTimestamp()
       interaction.reply({ embeds: [embed] });
     } catch (error) {
       console.error("Ocurrió un error:", error);
