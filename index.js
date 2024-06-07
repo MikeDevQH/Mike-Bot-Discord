@@ -4,7 +4,6 @@ const { loadAllCommands } = require('./handlers/commandHandler');
 const readyHandler = require('./events/ready');
 const interactionCreateHandler = require('./events/interactionCreate');
 const messageEventsHandler = require('./events/messageEvents');
-const prefixCommandHandler = require('./handlers/prefixCommandHandler'); 
 const { loadButtons } = require('./handlers/buttonHandler'); 
 const { loadSelectMenus } = require('./handlers/selectMenuHandler'); 
 const config = require('./config/config.json');
@@ -20,7 +19,6 @@ connectDB();
 readyHandler(client);
 interactionCreateHandler(client);
 messageEventsHandler(client);
-prefixCommandHandler(client, config.prefix); 
 
 // Cargar comandos, botones y menús desplegables
 loadAllCommands(client);
