@@ -1,13 +1,19 @@
 const { EmbedBuilder } = require('discord.js');
-const ticketConfigController = require('../controllers/ticketConfigController');
+const ticketConfigController = require('../../controllers/ticketConfigController');
 
 module.exports = {
     // Comando para iniciar la eliminación del ticket
     id: 'deleteTicket',
     async execute(interaction) {
         try {
-            // Mensaje indicando que el ticket se eliminara en 5 segundos
-            await interaction.reply('El ticket será eliminado en 5 segundos...')
+            const ticketChannelName = interaction.channel.name; // Capturar el nombre del canal del ticket
+
+            const embed = new EmbedBuilder()
+                    .setColor('#ff0000')
+                    .setDescription('El ticket será eliminado en 5 segundos')
+            
+            // Enviar el embed indicando que el ticket se eliminara en 5 segundos
+            await interaction.reply({ embeds: [embed] });
 
             // Esperar 5 segundos
             await new Promise(resolve => setTimeout(resolve, 5000));
@@ -23,7 +29,7 @@ module.exports = {
                 const embed = new EmbedBuilder()
                     .setColor('#ff0000')
                     .setTitle('Ticket Eliminado')
-                    .setDescription(`El ticket fue eliminado por ${interaction.member.user.tag}.`);
+                    .setDescription(`El ticket **${ticketChannelName}** fue eliminado por ${interaction.member.user.tag}.`)
                 
                 await logChannel.send({ embeds: [embed] });
             } else {

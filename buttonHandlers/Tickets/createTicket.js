@@ -1,10 +1,11 @@
 const { ChannelType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const ticketConfigController = require('../controllers/ticketConfigController');
+const ticketConfigController = require('../../controllers/ticketConfigController');
 
 module.exports = {
     id: 'createTicket',
     async execute(interaction) {
         const { guild, member, client } = interaction;
+        const serverIconURL = interaction.guild.iconURL({ dynamic: true }); 
 
         // Obtener la configuración de tickets desde la base de datos
         const config = await ticketConfigController.getTicketConfig(guild.id);
@@ -29,7 +30,7 @@ module.exports = {
         }
 
         const ticketChannel = await guild.channels.create({
-            name: `ticket-${member.user.username}`,
+            name: `${selectedCategory}-${member.user.username}`,
             type: ChannelType.GuildText,
             parent: categoryChannel.id,
             permissionOverwrites: [
@@ -49,23 +50,41 @@ module.exports = {
         });
 
         const ticketEmbed = new EmbedBuilder()
-            .setTitle('Nuevo Ticket')
-            .setDescription('Por favor, describe tu problema con detalles. No etiquetes al staff.')
-            .setColor(0x3498db);
+            .setDescription(`
+                > ## __Por favor ten en cuenta lo siguiente:__\n
+                
+                - 📝 Para que podamos ayudarte de la mejor manera, por favor describe lo que necesitas con la mayor cantidad de detalles posible.\n
+                - ⏳ Ten en cuenta que podría haber una pequeña espera antes de ser atendido, pero no te preocupes, ¡estamos trabajando para resolver tu problema lo más rápido posible!\n
+                - 🚫 Recuerda que no es necesario que etiquetes al staff. Una vez que envíes tu mensaje, un miembro del equipo de soporte se pondrá en contacto contigo lo antes posible.\n
+                
+                **🤝¡Gracias por tu paciencia y colaboración!🤝**`)
+            .setThumbnail(serverIconURL)
+            .setColor('#00FF00')
+            .setFooter({ text: `UserID: ${member.id}` }); // Almacenar el ID del usuario en el footer del embed
 
         const actionRow = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setCustomId('claimTicket')
-                .setLabel('Reclamar')
-                .setStyle(ButtonStyle.Primary),
+                .setLabel('👋 Reclamar')
+                .setStyle(ButtonStyle.Success),
             new ButtonBuilder()
                 .setCustomId('closeTicket')
-                .setLabel('Cerrar')
+                .setLabel('🔒 Cerrar Ticket')
                 .setStyle(ButtonStyle.Danger)
         );
 
-        await ticketChannel.send({ embeds: [ticketEmbed], components: [actionRow] });
-
+        await ticketChannel.send({ content: `¡Hola, <@${member.id}> hemos creado este ticket para tí! (<@&${config.staffRoleId}>)`,embeds: [ticketEmbed], components: [actionRow] });
         await interaction.reply({ content: `Ticket creado: ${ticketChannel}`, ephemeral: true });
+
+        // Enviar embed al canal de logs
+        const logChannelId = await ticketConfigController.getTicketLogChannel(guild.id);
+        const logChannel = guild.channels.cache.get(logChannelId);
+        if (logChannel) {
+            const logEmbed = new EmbedBuilder()
+                .setColor('#00FF00')
+                .setTitle('Ticket Creado')
+                .setDescription(`${member.user.username} ha creado un nuevo ticket en ${ticketChannel}`)
+            await logChannel.send({ embeds: [logEmbed] });
+        }
     }
 };

@@ -1,5 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js');
-const ticketConfigController = require('../controllers/ticketConfigController');
+const ticketConfigController = require('../../controllers/ticketConfigController');
 
 module.exports = {
     id: 'closeTicket',
@@ -22,17 +22,17 @@ module.exports = {
         const confirmEmbed = new EmbedBuilder()
             .setTitle('Confirmación de Cierre')
             .setDescription('¿Estás seguro de que deseas cerrar este ticket?')
-            .setColor(0xFF0000);
+            .setColor('#ff0000');
 
         const confirmButtons = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setCustomId('confirmCloseTicket')
                 .setLabel('Sí')
-                .setStyle(ButtonStyle.Danger),
+                .setStyle(ButtonStyle.Success),
             new ButtonBuilder()
                 .setCustomId('cancelCloseTicket')
                 .setLabel('No')
-                .setStyle(ButtonStyle.Secondary)
+                .setStyle(ButtonStyle.Danger)
         );
 
         await interaction.reply({ embeds: [confirmEmbed], components: [confirmButtons] });
