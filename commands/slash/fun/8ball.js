@@ -27,7 +27,7 @@ module.exports = {
         const botRespuesta = respuestas[Math.floor(Math.random() * respuestas.length)];
 
         const embed = new EmbedBuilder()
-            .setColor(0x0099FF) // Elige un color
+            .setColor(0x3498db)
             .setTitle('🎱 8-Ball')
             .addFields(
                 { name: 'Pregunta:', value: pgr, inline: false },
