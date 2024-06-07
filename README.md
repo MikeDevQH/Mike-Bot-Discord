@@ -1,13 +1,14 @@
 # Mike 🤖
 
-Mike es un bot de Discord que proporciona varias funcionalidades útiles para gestionar tu servidor de Discord. Este bot incluye comandos para gestionar idiomas, moderación, y más.
+Mike es un bot de Discord que proporciona varias funcionalidades útiles para gestionar tu servidor de Discord. Este bot incluye comandos para gestionar entrenimiento, moderación, y más.
 
 ## ✨ Características
 
-- 🌐 Cambiar el idioma del bot.
-- 🛡️ Sistema de moderación y registros.
-- ⚙️ Responder a comandos personalizados.
 - 🔗 Integraciones con varias API.
+- ⚙️ Responder a comandos personalizados(slash y prefix).
+- 🎟️ Sistema de tickets y registros
+- 🛡️ Sistema de moderación y registros.
+- 🔒 Sistema de automoderación
 
 ## 📋 Requisitos
 
@@ -29,18 +30,17 @@ Mike es un bot de Discord que proporciona varias funcionalidades útiles para ge
    npm install
    ```
 
-3. Crea un archivo .env en la raíz del proyecto y añade tu token de bot de Discord:
+3. Crea un archivo .env en la raíz del proyecto y añade tu token de bot de Discord y la uri de MongoDB ya sea local o en la nube:
    ```env
    DISCORD_TOKEN=your-bot-token-here
    MONGO_URI=your-URI-here
    ```
 
-4. Crea un archivo config.json en la carpeta `config` y configura tu ID de cliente y de servidor, el prefijo y el idioma por defecto del bot:
+4. Crea un archivo config.json en la carpeta `config` y configura tu ID de cliente y de servidor y el prefijo del bot:
    ```json
    {
       "clientId": "your-client-id-here",
       "guildId": "your-guild-id-here",
-      "language": "default-bot-language",
       "prefix": "bot-prefix"
    }
    ```
