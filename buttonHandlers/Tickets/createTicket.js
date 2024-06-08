@@ -51,7 +51,7 @@ module.exports = {
 
         const ticketEmbed = new EmbedBuilder()
             .setDescription(`
-                > ## __Por favor ten en cuenta lo siguiente:__\n
+                > ## 🎫 __Por favor ten en cuenta lo siguiente:__\n
                 
                 - 📝 Para que podamos ayudarte de la mejor manera, por favor describe lo que necesitas con la mayor cantidad de detalles posible.\n
                 - ⏳ Ten en cuenta que podría haber una pequeña espera antes de ser atendido, pero no te preocupes, ¡estamos trabajando para resolver tu problema lo más rápido posible!\n
@@ -59,8 +59,8 @@ module.exports = {
                 
                 **🤝¡Gracias por tu paciencia y colaboración!🤝**`)
             .setThumbnail(serverIconURL)
-            .setColor('#00FF00')
-            .setFooter({ text: `UserID: ${member.id}` }); // Almacenar el ID del usuario en el footer del embed
+            .setColor(0x3498db)
+            .setFooter({ text: `UserID: ${member.id}` }); // Almacenar el ID del usuario en el footer del embed para utilizarlo luego
 
         const actionRow = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
@@ -73,7 +73,7 @@ module.exports = {
                 .setStyle(ButtonStyle.Danger)
         );
 
-        await ticketChannel.send({ content: `¡Hola, <@${member.id}> hemos creado este ticket para tí! (<@&${config.staffRoleId}>)`,embeds: [ticketEmbed], components: [actionRow] });
+        await ticketChannel.send({ content: `¡Hola, <@${member.id}> hemos creado este ticket para tí! <@&${config.staffRoleId}>`,embeds: [ticketEmbed], components: [actionRow] });
         await interaction.reply({ content: `Ticket creado: ${ticketChannel}`, ephemeral: true });
 
         // Enviar embed al canal de logs

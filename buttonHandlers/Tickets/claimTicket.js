@@ -49,7 +49,7 @@ module.exports = {
 
         const claimEmbed = new EmbedBuilder()
                 .setTitle(`🎟️ Ticket reclamado por ${member.user.tag}.`)
-                .setColor('#00FF00')
+                .setColor(0x3498db)
                 .setDescription('Un staff ha reclamado tu ticket y será el encargado de atenderte y ayudarte en lo que necesites\n\n``Recuerda especificar lo que necesitas y hablar claro para poder atenderte lo mejor y más rápido posible``')
                 .setFooter({ text: `Equipo Administrativo de ${server.name}`, iconURL: serverIconURL })
 

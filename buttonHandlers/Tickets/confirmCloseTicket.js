@@ -54,11 +54,11 @@ module.exports = {
         const closedButtons = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setCustomId('deleteTicket')
-                .setLabel('Borrar Ticket')
+                .setLabel('🗑️ Borrar ')
                 .setStyle(ButtonStyle.Danger),
             new ButtonBuilder()
                 .setCustomId('reopenTicket')
-                .setLabel('Reabrir Ticket')
+                .setLabel('🔓 Reabrir')
                 .setStyle(ButtonStyle.Success)
         );
 

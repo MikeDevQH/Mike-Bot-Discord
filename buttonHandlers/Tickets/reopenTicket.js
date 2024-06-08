@@ -52,10 +52,11 @@ module.exports = {
         ]);
 
         const reopenEmbed = new EmbedBuilder ()
-                .setDescription(`El ticket fue reabierto por <@${member.user.id}>`)
-                .setColor('#00FF00')
+                .setDescription(`> El ticket fue reabierto por <@${member.user.id}>`)
+                .setColor(0x3498db)
 
-        await interaction.reply({ embeds: [reopenEmbed], content: (`<@${originalMemberId}>`) });
+        await interaction.reply({ embeds: [reopenEmbed] });
+        await interaction.follow({ content:(`<@${originalMemberId}>`) })
 
         // Enviar embed al canal de logs
         const logChannelId = await ticketConfigController.getTicketLogChannel(guild.id);

@@ -22,7 +22,7 @@ module.exports = {
         const confirmEmbed = new EmbedBuilder()
             .setTitle('Confirmación de Cierre')
             .setDescription('¿Estás seguro de que deseas cerrar este ticket?')
-            .setColor('#ff0000');
+            .setColor(0x3498db);
 
         const confirmButtons = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
