@@ -49,6 +49,14 @@ Mike es un bot de Discord que proporciona varias funcionalidades útiles para ge
    node index.js
    ```
 
+## 🔗 Invitación 
+- 🚀 Para invitar a **Mike** a tu servidor sigue estos sencillos pasos: 
+
+1. Haz clic en el siguiente enlace para invitarlo: [Invitar Bot](https://discord.com/oauth2/authorize?client_id=1241620050683891752&permissions=8&integration_type=0&scope=applications.commands+bot)
+2. Selecciona el servidor donde quieres agregar el bot.
+3. Otorga los permisos necesarios y haz clic en "Autorizar".
+4. ¡Listo! 🎉 Ahora **Mike** está en tu servidor y listo para usar.
+
 ## 🤝 Contribuciones
 - Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cualquier cambio importante antes de enviar un pull request.
 
