@@ -33,17 +33,17 @@ module.exports = {
         const confirmEmbed = new EmbedBuilder()
             .setTitle('Confirmación de Cierre')
             .setDescription('¿Estás seguro de que deseas cerrar este ticket?')
-            .setColor(0xFF0000);
+            .setColor(0x3498db);
 
         const confirmButtons = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setCustomId('confirmCloseTicket')
                 .setLabel('Sí')
-                .setStyle(ButtonStyle.Danger),
+                .setStyle(ButtonStyle.Secondary),
             new ButtonBuilder()
                 .setCustomId('cancelCloseTicket')
                 .setLabel('No')
-                .setStyle(ButtonStyle.Secondary)
+                .setStyle(ButtonStyle.Danger)
         );
 
         await interaction.reply({ embeds: [confirmEmbed], components: [confirmButtons] });
