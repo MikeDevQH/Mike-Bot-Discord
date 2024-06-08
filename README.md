@@ -12,7 +12,7 @@ Mike es un bot de Discord que proporciona varias funcionalidades útiles para ge
 
 ## 📋 Requisitos
 
-- 📦 Node.js v14 o superior.
+- 📦 Node.js v20 o superior.
 - 📦 npm (Node Package Manager).
 - 👤 Una cuenta de Discord y un servidor donde tengas permisos de administrador.
 - 🛠️ Un bot de Discord configurado en el [Portal de Desarrolladores de Discord](https://discord.com/developers/applications).

@@ -22,7 +22,7 @@ const loadButtons = (client) => {
     client.buttonHandlers = new Map();
 
     // Obtener todos los archivos de botones en las subcarpetas
-    const buttonFiles = getFilesRecursively(path.join(__dirname, '../ButtonHandlers'));
+    const buttonFiles = getFilesRecursively(path.join(__dirname, '../buttonHandlers'));
 
     for (const file of buttonFiles) {
         try {
