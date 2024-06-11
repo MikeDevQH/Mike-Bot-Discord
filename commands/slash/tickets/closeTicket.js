@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType ,PermissionFlagsBits } = require('discord.js');
 const ticketConfigController = require('../../../controllers/ticketConfigController');
 
 module.exports = {
@@ -14,6 +14,18 @@ module.exports = {
         const config = await ticketConfigController.getTicketConfig(guild.id);
         if (!config) {
             await interaction.reply({ content: 'No se pudo encontrar la configuración del sistema de tickets.', ephemeral: true });
+            return;
+        }
+
+        // Obtener la categoría "Cerrados"
+        let closedCategory = guild.channels.cache.find(channel => channel.name === 'Cerrados' && channel.type === ChannelType.GuildCategory);
+        
+        // Verificar si el ticket ya está cerrado
+        if(channel.parentId === closedCategory.id){
+            const embed = new EmbedBuilder()
+                    .setDescription('> ¡El ticket ya está cerrado!')
+                    .setColor(0x3498db)
+            await interaction.reply({embeds: [embed]})
             return;
         }
 
@@ -39,7 +51,7 @@ module.exports = {
             new ButtonBuilder()
                 .setCustomId('confirmCloseTicket')
                 .setLabel('Sí')
-                .setStyle(ButtonStyle.Secondary),
+                .setStyle(ButtonStyle.Success),
             new ButtonBuilder()
                 .setCustomId('cancelCloseTicket')
                 .setLabel('No')

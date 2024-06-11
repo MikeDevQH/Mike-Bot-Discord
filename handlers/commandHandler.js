@@ -19,9 +19,9 @@ const loadCommands = (client, dir) => {
                     client.commands.set(command.data.name, command); // Carga los comandos de slash
                 } else if (command && command.id) {
                     if (file.name.startsWith('select')) {
-                        client.selectMenuHandlers.set(command.id, command); // Carga los menús desplegables
+                        client.selectMenus.set(command.id, command); // Carga los menús desplegables
                     } else if (file.name.startsWith('button')) {
-                        client.buttonHandlers.set(command.id, command); // Carga los botones
+                        client.buttons.set(command.id, command); // Carga los botones
                     }
                 } else {
                     console.error(`Error al cargar el comando en ${filePath}`);
@@ -47,8 +47,8 @@ const registerSlashCommands = async (client) => {
 
 const loadAllCommands = (client) => {
     client.commands = new Collection();
-    client.buttonHandlers = new Map(); // Mapa para los manejadores de botones
-    client.selectMenuHandlers = new Map(); // Mapa para los manejadores de menús desplegables
+    client.buttons = new Map(); // Mapa para los manejadores de botones
+    client.selectMenus = new Map(); // Mapa para los manejadores de menús desplegables
 
     const commandsDir = path.join(__dirname, '../commands');
     loadCommands(client, commandsDir);

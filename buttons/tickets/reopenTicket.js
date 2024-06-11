@@ -32,6 +32,13 @@ module.exports = {
             return;
         }
 
+        const reopenEmbed = new EmbedBuilder()
+            .setDescription(`> El ticket fue reabierto por <@${member.user.id}>`)
+            .setColor(0x3498db)
+
+        await interaction.reply({ embeds: [reopenEmbed] });
+        await channel.send(`<@${originalMemberId}>`)
+
         // Mover el canal a la categoría original
         await channel.setParent(originalCategory);
 
@@ -50,13 +57,6 @@ module.exports = {
                 allow: [PermissionFlagsBits.ViewChannel],
             }
         ]);
-
-        const reopenEmbed = new EmbedBuilder ()
-                .setDescription(`> El ticket fue reabierto por <@${member.user.id}>`)
-                .setColor(0x3498db)
-
-        await interaction.reply({ embeds: [reopenEmbed] });
-        await interaction.follow({ content:(`<@${originalMemberId}>`) })
 
         // Enviar embed al canal de logs
         const logChannelId = await ticketConfigController.getTicketLogChannel(guild.id);

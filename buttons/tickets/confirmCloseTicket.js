@@ -23,6 +23,33 @@ module.exports = {
             });
         }
 
+        // Verificar si el ticket está en la categoria Cerrados
+        if (channel.parentId === closedCategory.id) {
+            const embed = new EmbedBuilder()
+                .setDescription('> ¡El ticket ya está cerrado!')
+                .setColor(0x3498db)
+            await interaction.reply({ embeds: [embed] })
+            return; // Finaliza la ejecución de la función si se cumple la condición 
+        }
+
+        const closedEmbed = new EmbedBuilder()
+            .setTitle('Ticket Cerrado')
+            .setDescription('El ticket ha sido cerrado.')
+            .setColor('#ff0000');
+
+        const closedButtons = new ActionRowBuilder().addComponents(
+            new ButtonBuilder()
+                .setCustomId('deleteTicket')
+                .setLabel('🗑️ Borrar ')
+                .setStyle(ButtonStyle.Danger),
+            new ButtonBuilder()
+                .setCustomId('reopenTicket')
+                .setLabel('🔓 Reabrir')
+                .setStyle(ButtonStyle.Success)
+        );
+
+        await interaction.reply({ embeds: [closedEmbed], components: [closedButtons] });
+
         // Guardar la categoría original en el topic del canal antes de moverlo
         const originalCategory = channel.parentId;
         await channel.setTopic(originalCategory);
@@ -45,24 +72,6 @@ module.exports = {
                 allow: [PermissionFlagsBits.ViewChannel],
             },
         ]);
-
-        const closedEmbed = new EmbedBuilder()
-            .setTitle('Ticket Cerrado')
-            .setDescription('El ticket ha sido cerrado.')
-            .setColor('#ff0000');
-
-        const closedButtons = new ActionRowBuilder().addComponents(
-            new ButtonBuilder()
-                .setCustomId('deleteTicket')
-                .setLabel('🗑️ Borrar ')
-                .setStyle(ButtonStyle.Danger),
-            new ButtonBuilder()
-                .setCustomId('reopenTicket')
-                .setLabel('🔓 Reabrir')
-                .setStyle(ButtonStyle.Success)
-        );
-
-        await interaction.reply({ embeds: [closedEmbed], components: [closedButtons] });
 
         // Enviar embed al canal de logs
         const logChannelId = await ticketConfigController.getTicketLogChannel(guild.id);

@@ -108,15 +108,14 @@ module.exports = {
         const ticketEmbed = new EmbedBuilder()
         .setTitle('🎟️ CREAR UN TICKET PARA RECIBIR SOPORTE 🎟️')
         .setColor(0x3498db)
-        .setDescription(`¡Bienvenido al servidor **${server.name}**! 🎉\n\n
-Estamos aquí para ayudarte con cualquier problema o duda que puedas tener. En este canal, puedes crear un ticket de soporte para recibir la asistencia que necesitas.\n
+        .setDescription(`¡Bienvenido al servidor **${server.name}**! 🎉\n
+> Estamos aquí para ayudarte con cualquier problema o duda que puedas tener. En este canal, puedes crear un ticket de soporte para recibir la asistencia que necesitas.\n
 ## **¿Qué es un ticket?**\n
 📄 Un ticket es una forma de contactar directamente con nuestro equipo de soporte. Te permitirá describir tu problema o pregunta para que podamos ayudarte de la mejor manera posible.\n
 ## **Cómo recibir soporte:**\n
 1️⃣ Selecciona la categoría que mejor se asemeje a tu problema en el menú de abajo.\n
 2️⃣ Nuestro equipo de soporte te atenderá lo antes posible.\n\n
-⚠️ Abusar de este medio o darle un mal uso conllevará una sanción. \n\n
-📌 **Por favor, elige la categoría correcta para tu situación a continuación:**`)
+**⚠️ __Abusar de este medio o darle un mal uso conllevará una sanción.__ ⚠️**`)
         .setThumbnail(serverIconURL)
         .setFooter({ text: `Equipo Administrativo de ${server.name}`, iconURL: serverIconURL })
 

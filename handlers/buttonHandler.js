@@ -19,16 +19,16 @@ const getFilesRecursively = (directory) => {
 };
 
 const loadButtons = (client) => {
-    client.buttonHandlers = new Map();
+    client.buttons = new Map();
 
     // Obtener todos los archivos de botones en las subcarpetas
-    const buttonFiles = getFilesRecursively(path.join(__dirname, '../buttonHandlers'));
+    const buttonFiles = getFilesRecursively(path.join(__dirname, '../buttons'));
 
     for (const file of buttonFiles) {
         try {
             const buttonHandler = require(file);
             if (buttonHandler && buttonHandler.id) {
-                client.buttonHandlers.set(buttonHandler.id, buttonHandler);
+                client.buttons.set(buttonHandler.id, buttonHandler);
             } else {
                 console.error(`Error al cargar el handler de botón en ${file}`);
             }
@@ -37,7 +37,7 @@ const loadButtons = (client) => {
         }
     }
 
-    console.log(`Loaded ${client.buttonHandlers.size} button handlers.`);
+    console.log(`Loaded ${client.buttons.size} buttons.`);
 };
 
 module.exports = {
