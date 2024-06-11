@@ -6,7 +6,7 @@ const interactionCreateHandler = require('./events/interactionCreate');
 const messageEventsHandler = require('./events/messageEvents');
 const { loadButtons } = require('./handlers/buttonHandler'); 
 const { loadSelectMenus } = require('./handlers/selectMenuHandler'); 
-const config = require('./config/config.json');
+const { loadModals } = require('./handlers/modalHandler');
 const connectDB = require('./utils/database');
 
 const client = new Client({
@@ -24,6 +24,7 @@ messageEventsHandler(client);
 loadAllCommands(client);
 loadButtons(client); // Cargar los manejadores de botones
 loadSelectMenus(client); // Cargar los manejadores de menús desplegables
+loadModals(client); // Cargar los manejadores de modales
 
 client.on('error', (error) =>{
     console.log("Hay un error del bot en:", error)

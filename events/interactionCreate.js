@@ -12,7 +12,7 @@ module.exports = (client) => {
                 await interaction.reply({ content: 'Hubo un error al ejecutar este comando.', ephemeral: true });
             }
         } else if (interaction.isButton()) {
-            const buttonHandler = client.buttonHandlers.get(interaction.customId);
+            const buttonHandler = client.buttons.get(interaction.customId);
 
             if (!buttonHandler) return;
 
@@ -23,12 +23,23 @@ module.exports = (client) => {
                 await interaction.reply({ content: 'Hubo un error al manejar esta interacción.', ephemeral: true });
             }
         } else if (interaction.isStringSelectMenu()) {
-            const selectMenuHandler = client.selectMenuHandlers.get(interaction.customId);
+            const selectMenuHandler = client.selectMenus.get(interaction.customId);
 
             if (!selectMenuHandler) return;
 
             try {
                 await selectMenuHandler.execute(interaction);
+            } catch (error) {
+                console.error(error);
+                await interaction.reply({ content: 'Hubo un error al manejar esta interacción.', ephemeral: true });
+            }
+        } else if (interaction.isModalSubmit()) {
+            const modalHandler = client.modals.get(interaction.customId);
+
+            if (!modalHandler) return;
+
+            try {
+                await modalHandler.execute(interaction);
             } catch (error) {
                 console.error(error);
                 await interaction.reply({ content: 'Hubo un error al manejar esta interacción.', ephemeral: true });
