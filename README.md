@@ -49,6 +49,9 @@ Mike es un bot de Discord que proporciona varias funcionalidades útiles para ge
    node index.js
    ```
 
+## 📜 Licencia
+- Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE)
+
 ## 🤝 Contribuciones
 - Las contribuciones son bienvenidas. Por favor, abre un issue para discutir cualquier cambio importante antes de enviar un pull request.
 
