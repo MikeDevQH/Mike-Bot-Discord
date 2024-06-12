@@ -21,8 +21,8 @@ Mike es un bot de Discord que proporciona varias funcionalidades útiles para ge
 
 1. Clona este repositorio:
    ```bash
-   git clone https://github.com/MichaelQhdez/Mike-Bot.git
-   cd Mike-Bot
+   https://github.com/MikeDevQH/Mike-Bot-Discord.git
+   cd Mike-Bot-Discord 
    ```
    
 2. Instala las dependencias:
