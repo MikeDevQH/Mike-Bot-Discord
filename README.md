@@ -8,7 +8,6 @@ Mike es un bot de Discord que proporciona varias funcionalidades útiles para ge
 - ⚙️ Responder a comandos personalizados.
 - 🎟️ Sistema de tickets y registros
 - 🛡️ Sistema de moderación y registros.
-- 🔒 Sistema de automoderación
 
 ## 📋 Requisitos
 
