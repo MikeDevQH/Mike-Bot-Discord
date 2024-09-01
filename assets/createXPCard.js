@@ -7,7 +7,12 @@ async function createXpCard(username, xp, level, nextLevelXP, rank, avatarURL, s
     const canvas = createCanvas(width, height);
     const ctx = canvas.getContext('2d');
 
-    ctx.fillStyle = '#131212';
+    // Crear un degradado lineal de azul a un azul más claro
+    const gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, '#0044cc'); // Azul oscuro
+    gradient.addColorStop(1, '#66b3ff'); // Azul claro
+
+    ctx.fillStyle = gradient; // Establecer el degradado como color de relleno
     ctx.beginPath();
     ctx.roundRect(0, 0, width, height, 20);
     ctx.fill();
@@ -20,6 +25,14 @@ async function createXpCard(username, xp, level, nextLevelXP, rank, avatarURL, s
     ctx.clip();
     ctx.drawImage(avatar, 17, 25, 161, 161);
     ctx.restore();
+
+    // Dibujar el borde del avatar
+    ctx.lineWidth = 6; // Grosor del borde
+    ctx.strokeStyle = '#ffffff'; // Color del borde blanco para buen contraste
+    ctx.beginPath();
+    ctx.arc(97.5, 105.5, 80.5, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.stroke();
 
     // Determinar el color del punto de estado según el estado del usuario
     let statusColor;
@@ -46,7 +59,8 @@ async function createXpCard(username, xp, level, nextLevelXP, rank, avatarURL, s
     ctx.arc(160.5, 158.5, 19.5, 0, Math.PI * 2, true);
     ctx.fill();
 
-    ctx.fillStyle = '#FFFFFF';
+    // Estilizar el texto
+    ctx.fillStyle = '#ffffff'; // Blanco para el texto sobre el fondo azul
     ctx.font = 'bold 39px Inter';
     ctx.fillText(username, 251, 122);
 
@@ -58,15 +72,16 @@ async function createXpCard(username, xp, level, nextLevelXP, rank, avatarURL, s
     // Dibujar texto de Nivel
     ctx.fillText(`LEVEL ${level}`, 740, 65);
 
-    ctx.fillStyle = '#252A2F';
+    // Estilizar la barra de nivel
+    ctx.fillStyle = '#003366'; // Azul oscuro para el fondo de la barra de nivel
     ctx.beginPath();
     ctx.roundRect(234, 148, 632, 36, 18);
     ctx.fill();
 
     const minXPWidth = 40;
-    const xpWidth = Math.max(minXPWidth, (xp / nextLevelXP) * 632);
+    const xpWidth = Math.max(minXPWidth, (xp / nextLevelXP) * 620);
 
-    ctx.fillStyle = '#8A63FF';
+    ctx.fillStyle = '#66b3ff'; // Azul claro para el progreso de la barra
     ctx.beginPath();
 
     if (xpWidth <= minXPWidth) {
@@ -79,8 +94,5 @@ async function createXpCard(username, xp, level, nextLevelXP, rank, avatarURL, s
 
     return canvas.toBuffer('image/png');
 }
-
-
-
 
 module.exports = { createXpCard };
